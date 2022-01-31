@@ -1,0 +1,10 @@
+{
+  "generator-jhipster-module": {
+    "promptValues": {
+      "githubName": "maldieve",
+      "authorName": "Gregory Davis",
+      "authorEmail": "maldieve@yahoo.com",
+      "authorUrl": "maldieve.com"
+    }
+  }
+}

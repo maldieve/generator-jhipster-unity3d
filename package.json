@@ -1,0 +1,65 @@
+{
+  "name": "generator-jhipster-unity3d",
+  "version": "0.0.1",
+  "description": "Generators microservice connectivity for unity3d",
+  "keywords": [
+    "yeoman-generator",
+    "jhipster-module",
+    "jhipster"
+  ],
+  "homepage": "https://github.com/maldieve/generator-jhipster-unity3d",
+  "author": {
+    "name": "Gregory Davis",
+    "email": "maldieve@yahoo.com",
+    "url": "maldieve.com"
+  },
+  "files": [
+    "generators",
+    "cli"
+  ],
+  "bin": {
+    "unity3d": "./cli/unity3d.js"
+  },
+  "main": "generators/app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maldieve/generator-jhipster-unity3d.git"
+  },
+  "dependencies": {
+    "chalk": "4.1.2",
+    "cross-spawn": "7.0.3",
+    "fs-extra": "10.0.0",
+    "generator-jhipster": ">=7.0.0",
+    "jsonfile": "6.1.0",
+    "lodash": "4.17.21",
+    "pluralize": "8.0.0",
+    "semver": "7.3.5",
+    "shelljs": "0.8.4",
+    "yeoman-environment": "3.5.1",
+    "yo": "4.3.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/schematics-cli": "12.2.1",
+    "@oktadev/schematics": "5.0.1",
+    "chai": "4.3.4",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-plugin-import": "2.24.0",
+    "mocha": "9.0.3",
+    "prettier": "2.3.2",
+    "yeoman-assert": "3.1.1",
+    "yeoman-test": "6.2.0"
+  },
+  "scripts": {
+    "test": "mocha --timeout 20000 test/*",
+    "prettier": "prettier --write \"{,cli/,generators/**/}*.{js,json,html,md,ts}\" --loglevel silent"
+  },
+  "engines": {
+    "node": ">=8.10.0",
+    "npm": ">=5.6.0"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/maldieve/generator-jhipster-unity3d/issues"
+  }
+}
