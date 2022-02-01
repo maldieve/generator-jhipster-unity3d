@@ -19,10 +19,6 @@ describe('JHipster generator unity3d', () => {
                 })
                 .on('end', done);
         });
-
-        it('generate dummy.txt file', () => {
-            assert.file(['dummy-maven.txt', 'dummy-angularX.txt']);
-        });
     });
 
     describe('Test with Gradle and React', () => {
@@ -39,10 +35,6 @@ describe('JHipster generator unity3d', () => {
                     message: 'simple message to say hello'
                 })
                 .on('end', done);
-        });
-
-        it('generate dummy.txt file', () => {
-            assert.file(['dummy-gradle.txt', 'dummy-react.txt']);
         });
     });
 });

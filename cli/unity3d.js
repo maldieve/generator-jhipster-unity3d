@@ -19,17 +19,17 @@
  */
 const spawn = require('cross-spawn');
 
-let commands = ['jhipster-ionic'];
+let commands = ['jhipster-unity3d'];
 
-// ionic4j entity $name
+// unity3d entity $name
 if (process.argv[2] === 'entity') {
-  commands = [commands[0].replace('ionic', 'ionic:entity')];
+  commands = [commands[0].replace('unity3d', 'unity3d:entity')];
   commands[1] = process.argv[3];
 }
 
 // allow ionic4j import-jdl $file
 if (process.argv[2] === 'import-jdl') {
-  commands = [commands[0].replace('ionic', 'ionic:import-jdl')];
+  commands = [commands[0].replace('unity3d', 'unity3d:import-jdl')];
   commands[1] = process.argv[3];
 }
 
