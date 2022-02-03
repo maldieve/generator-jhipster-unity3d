@@ -41,6 +41,7 @@ module.exports = class extends baseMixin(BaseGenerator) {
       this.configRootPath = fs.readJSONSync('.jhipster-unity3d.json').directoryPath;
       const yoRc = fs.readJSONSync(`${this.configRootPath}/.yo-rc.json`);
       this.jhipsterConfig = yoRc ? yoRc['generator-jhipster'] : {};
+      this.unity3dAppName = this.jhipsterConfig.baseName;
     } catch (error) {
       this.log('File .jhipster-unity3d.json not found. Please run this command in an Unity3d project.');
       throw error;
@@ -64,7 +65,7 @@ module.exports = class extends baseMixin(BaseGenerator) {
 
   get preparingFields() {
     // Here we are not overriding this phase and hence its being handled by JHipster
-    return super._preparingFields();
+    return this._preparingFields();
   }
 
   get preparingRelationships() {
@@ -102,6 +103,29 @@ module.exports = class extends baseMixin(BaseGenerator) {
     if (!entityAngularName) {
       return;
     }
+  }
+
+  _preparingFields() {
+    return {
+      processDerivedPrimaryKeyFields() {
+        const primaryKey = this.entity.primaryKey;
+        if (!primaryKey || primaryKey.composite || !primaryKey.derivedFields) {
+          return;
+        }
+        // derivedPrimary uses '@MapsId', which requires for each relationship id field to have corresponding field in the model
+        const derivedFields = this.entity.primaryKey.derivedFields;
+        this.entity.fields.unshift(...derivedFields);
+      },
+      processFieldType() {
+        this.entity.fields.forEach(field => {
+          if (field.blobContentTypeText) {
+            field.javaFieldType = 'String';
+          } else {
+            field.javaFieldType = field.fieldType;
+          }
+        });
+      },
+    };
   }
 
   /**

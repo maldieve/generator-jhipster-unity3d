@@ -1,13 +1,19 @@
-namespace QuizzAppGUI.Data.Entities
+namespace <%= unity3dAppName %>GUI.Data.Entities.<%= entityAngularName %>
 {
-    public enum <%= entityAngularName %>
-    {
-        Off,
-        Normal,
-        Warning,
-        Danger,
-        Error,
-        Recuperate
-
-    }
+    <%_ for (const field of fields.filter(field => !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+      <%_ if (typeof field.javadoc !== 'undefined') { _%>
+    <%- formatAsFieldJavadoc(field.javadoc) %>
+      <%_ } _%>
+      <%_ if (!dtoMapstruct && typeof field.javadoc !== 'undefined') { _%>
+        @Schema(description = "<%- formatAsApiDescription(field.javadoc) %>"<% if (field.fieldValidationRequired) { %>, required = true<% } %>)
+      <%_ } _%>
+    <&- fragments.field<%- field.fieldNameCapitalized %>AnnotationSection() -&>
+        private <%= field.javaFieldType %> <%= field.fieldName %>;
+    
+      <%_ if (field.fieldWithContentType) { _%>
+    <&- fragments.field<%- field.fieldNameCapitalized %>ContentTypeAnnotationSection() -&>
+        private String <%= field.fieldName %>ContentType;
+    
+      <%_ } _%>
+    <%_ } _%>
 }

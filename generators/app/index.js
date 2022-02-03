@@ -196,6 +196,11 @@ module.exports = class extends baseMixin(BaseGenerator) {
     jsonfile.writeFileSync(packagePath, packageJSON);
 
     this.template('Assets/Mvvm/ObservableObject.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/ObservableObject.cs`);
+    this.template('Assets/Mvvm/RelayCommand.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/RelayCommand.cs`);
+    this.template('Assets/Mvvm/ViewModelBase.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/ViewModelBase.cs`);
+    this.template('Assets/Mvvm/WeakAction.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/WeakAction.cs`);
+    this.template('Assets/Mvvm/WeakActionT.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/WeakActionT.cs`);
+    this.template('Assets/Mvvm/WeakFunc.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/WeakFunc.cs`);
     // this.template('src/app/services/user/user.model.ts.ejs', `${CLIENT_MAIN_SRC_DIR}app/services/user/user.model.ts`);
 
     // Calculate JHipster logo to use and add to Sass templates

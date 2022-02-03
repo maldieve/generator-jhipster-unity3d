@@ -1,0 +1,65 @@
+﻿using System;
+using System.Windows.Input;
+
+namespace QuizzAppGui.Mvvm
+{
+    public class RelayCommand : ICommand
+    {
+        private readonly WeakFunc<bool> _canAction;
+        private readonly WeakAction _action;
+
+        public event EventHandler CanExecuteChanged;
+
+        public RelayCommand(Action action)
+            : this(action, null)
+        {
+        }
+
+        public RelayCommand(Action action, Func<bool> canExecute)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException("action");
+            }
+
+            _action = new WeakAction(action);
+
+            if (canExecute != null)
+            {
+                _canAction = new WeakFunc<bool>(canExecute);
+            }
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            if (_canAction == null)
+            {
+                return true;
+            }
+
+            if (!_canAction.IsStatic && !_canAction.IsAlive)
+            {
+                return false;
+            }
+
+            return _canAction.Execute();
+        }
+
+        public virtual void Execute(object parameter)
+        {
+            if (_action != null && (_action.IsStatic || _action.IsAlive))
+            {
+                _action.Execute();
+            }
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            EventHandler canExecuteChanged = CanExecuteChanged;
+            if (canExecuteChanged != null)
+            {
+                canExecuteChanged(this, EventArgs.Empty);
+            }
+        }
+    }
+}

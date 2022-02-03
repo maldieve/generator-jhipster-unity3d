@@ -1,0 +1,52 @@
+﻿using System;
+
+namespace QuizzAppGui.Mvvm
+{
+    public class WeakAction<T> : WeakAction
+    {
+        private readonly Action<T> _action;
+
+        public WeakAction(Action<T> action)
+            : this(action.Target, action)
+        {
+        }
+
+        public WeakAction(object target, Action<T> action)
+            : base(target, null)
+        {
+            _action = action;
+        }
+
+        public new void Execute()
+        {
+            if ((_action != null) && IsAlive)
+            {
+                _action(default(T));
+            }
+        }
+
+        public void Execute(T parameter)
+        {
+            if ((_action != null) && (IsStatic || IsAlive))
+            {
+                _action(parameter);
+            }
+        }
+
+        public new Action<T> Action
+        {
+            get
+            {
+                return _action;
+            }
+        }
+
+        public new bool IsStatic
+        {
+            get
+            {
+                return ((_action != null) && (_action.Target == null));
+            }
+        }
+    }
+}

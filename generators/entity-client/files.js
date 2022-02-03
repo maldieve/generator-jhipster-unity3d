@@ -23,7 +23,7 @@ const constants = require('generator-jhipster/generators/generator-constants');
 
 /* Constants use throughout */
 const INTERPOLATE_REGEX = constants.INTERPOLATE_REGEX;
-const UNITY_DIR = 'Assets/Data/'
+const UNITY_DIR = 'Assets/'
 
 const CLIENT_UNITY3D_TEMPLATES_DIR = 'unity3d';
 const UNITY_MAIN_SRC_DIR = `Assets`;
@@ -38,11 +38,19 @@ const E2E_TEST_DIR = 'e2e/';
 const unity3dFiles = {
   unity: [
     {
-      path: UNITY_DIR,
+      path: `${UNITY_DIR}`,
       templates: [
         {
-          file: 'Entities/_entity.cs',
-          renameTo: (generator) => `Entities/${generator.entityFolderName}/${generator.entityFileName}.cs`
+          file: 'Data/Entities/_entity.cs',
+          renameTo: (generator) => `Data/Entities/${generator.entityAngularName}/${generator.entityAngularName}.cs`
+        },
+        {
+          file: 'Data/Repositories/_entity.service.cs',
+          renameTo: (generator) => `Data/Repositories/${generator.entityAngularName}/${generator.entityAngularName}Repository.cs`
+        },
+        {
+          file: 'ViewModels/_entity.view.model.cs',
+          renameTo: (generator) => `ViewModels/${generator.entityAngularName}/${generator.entityAngularName}ViewModel.cs`
         },
       ]
     }
@@ -60,10 +68,10 @@ function writeFiles() {
       if (_.isUndefined(this.microservicePath)) {
         return;
       }
-      this.copy(
-        `${this.microservicePath}/${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`,
-        this.destinationPath(`${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`)
-      );
+      // this.copy(
+      //   `${this.microservicePath}/${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`,
+      //   this.destinationPath(`${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`)
+      // );
     },
 
     writeClientFiles() {

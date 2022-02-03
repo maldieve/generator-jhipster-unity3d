@@ -1,0 +1,78 @@
+﻿using System;
+
+namespace QuizzAppGui.Mvvm
+{
+    public class WeakFunc<TResult>
+    {
+        private readonly Func<TResult> _func;
+        private WeakReference _reference;
+
+        public WeakFunc(Func<TResult> func)
+            : this(func.Target, func)
+        {
+        }
+
+        public WeakFunc(object target, Func<TResult> func)
+        {
+            if (target != null)
+            {
+                _reference = new WeakReference(target);
+            }
+            _func = func;
+        }
+
+        public TResult Execute()
+        {
+            if ((_func == null) || (!IsAlive && !IsStatic))
+            {
+                return default(TResult);
+            }
+            return _func();
+        }
+
+        public void MarkForDeletion()
+        {
+            _reference = null;
+        }
+
+        public Func<TResult> Func
+        {
+            get
+            {
+                return _func;
+            }
+        }
+
+        public bool IsAlive
+        {
+            get
+            {
+                if (_reference == null)
+                {
+                    return false;
+                }
+                return _reference.IsAlive;
+            }
+        }
+
+        public bool IsStatic
+        {
+            get
+            {
+                return ((_func != null) && (_func.Target == null));
+            }
+        }
+
+        public object Target
+        {
+            get
+            {
+                if (_reference == null)
+                {
+                    return null;
+                }
+                return _reference.Target;
+            }
+        }
+    }
+}
