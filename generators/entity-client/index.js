@@ -41,7 +41,7 @@ module.exports = class extends baseMixin(BaseGenerator) {
       this.configRootPath = fs.readJSONSync('.jhipster-unity3d.json').directoryPath;
       const yoRc = fs.readJSONSync(`${this.configRootPath}/.yo-rc.json`);
       this.jhipsterConfig = yoRc ? yoRc['generator-jhipster'] : {};
-      this.unity3dAppName = this.jhipsterConfig.baseName;
+      this.unity3dAppName = fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName;
     } catch (error) {
       this.log('File .jhipster-unity3d.json not found. Please run this command in an Unity3d project.');
       throw error;
