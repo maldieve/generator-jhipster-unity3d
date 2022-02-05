@@ -119,13 +119,33 @@ module.exports = class extends baseMixin(BaseGenerator) {
       processFieldType() {
         this.entity.fields.forEach(field => {
           if (field.blobContentTypeText) {
-            field.javaFieldType = 'String';
+            field.javaFieldType = 'string';
           } else {
-            field.javaFieldType = field.fieldType;
+            field.javaFieldType = this._toCSharpFields(field.fieldType);
           }
         });
       },
     };
+  }
+
+  _toCSharpFields(field) {
+    let _field = "string";
+    if ( field === 'Integer' ) {
+      _field = 'int';
+    }
+    if ( field === 'Double' ) {
+      _field = 'double';
+    }
+    if ( field === 'Long' ) {
+      _field = 'long';
+    }
+    if ( field === 'Boolean' ) {
+      _field = 'bool';
+    }
+    if ( field === 'String' ) {
+      _field = 'string';
+    }
+    return _field;
   }
 
   /**

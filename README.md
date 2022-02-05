@@ -45,6 +45,14 @@ yarn global upgrade generator-jhipster-unity3d
 ```
 
 # Usage
+To begin to work:
+- launch: npm install or yarn install
+- link: npm link or yarn link
+- test your module in a JHipster project:
+    - go into your JHipster project
+    - link to your module: npm link generator-jhipster-unity3d or yarn link generator-jhipster-unity3d
+    - launch your module: yo jhipster-unity3d
+- then, come back here, and begin to code!
 
 # License
 
