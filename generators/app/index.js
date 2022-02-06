@@ -195,13 +195,37 @@ module.exports = class extends baseMixin(BaseGenerator) {
     packageJSON.scripts.prettier = 'prettier --write "{,e2e/**/,src/**/}*.{js,json,html,md,ts,css,scss,yml}" --loglevel silent';
     jsonfile.writeFileSync(packagePath, packageJSON);
 
+    // MvvM
     this.template('Assets/Mvvm/ObservableObject.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/ObservableObject.cs`);
     this.template('Assets/Mvvm/RelayCommand.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/RelayCommand.cs`);
     this.template('Assets/Mvvm/ViewModelBase.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/ViewModelBase.cs`);
     this.template('Assets/Mvvm/WeakAction.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/WeakAction.cs`);
     this.template('Assets/Mvvm/WeakActionT.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/WeakActionT.cs`);
     this.template('Assets/Mvvm/WeakFunc.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/WeakFunc.cs`);
-    // this.template('src/app/services/user/user.model.ts.ejs', `${CLIENT_MAIN_SRC_DIR}app/services/user/user.model.ts`);
+
+    // RestClient
+    this.template('Assets/Packages/Proyecto26.RestClient/RestClient.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/RestClient.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/RestClientPromise.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/RestClientPromise.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/Common.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/Common`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/ExecuteOnMainThread.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/ExecuteOnMainThread.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/Extensions.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/Extensions.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/HttpBase.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/HttpBase.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/JsonHelper.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/JsonHelper.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/RequestException.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/RequestException.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/RequestHelper.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/RequestHelper.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/RequestHelperExtension.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/RequestHelperExtension.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/ResponseHelper.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/ResponseHelper.cs`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/StaticCoroutine.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/StaticCoroutine.cs`);
+
+    // RSG.Promise
+    this.template('Assets/Packages/RSG.Promise/EnumerableExt.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/EnumerableExt.cs`);
+    this.template('Assets/Packages/RSG.Promise/Promise_NonGeneric.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/Promise_NonGeneric.cs`);
+    this.template('Assets/Packages/RSG.Promise/Promise.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/Promise.cs`);
+    this.template('Assets/Packages/RSG.Promise/PromiseHelpers.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/PromiseHelpers.cs`);
+    this.template('Assets/Packages/RSG.Promise/PromiseTimer.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/PromiseTimer.cs`);
+    this.template('Assets/Packages/RSG.Promise/Tuple.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/Tuple.cs`);
+    this.template('Assets/Packages/RSG.Promise/Exceptions/PromiseException.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/Exceptions/PromiseException.cs`);
+    this.template('Assets/Packages/RSG.Promise/Exceptions/PromiseStateException.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/RSG.Promise/Exceptions/PromiseStateException.cs`);
 
     // Calculate JHipster logo to use and add to Sass templates
     this.hipster = this.getHipster(this.unity3dAppName);
