@@ -195,6 +195,10 @@ module.exports = class extends baseMixin(BaseGenerator) {
     packageJSON.scripts.prettier = 'prettier --write "{,e2e/**/,src/**/}*.{js,json,html,md,ts,css,scss,yml}" --loglevel silent';
     jsonfile.writeFileSync(packagePath, packageJSON);
 
+    // App + Auth
+    this.template('Assets/Scripts/App.cs.ejs', `${UNITY_MAIN_SRC_DIR}Scripts/App.cs`);
+    this.template('Assets/Scripts/Authentication/Model/Token.cs.ejs', `${UNITY_MAIN_SRC_DIR}Scripts/Authentication/Model/Token.cs`);
+
     // MvvM
     this.template('Assets/Mvvm/ObservableObject.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/ObservableObject.cs`);
     this.template('Assets/Mvvm/RelayCommand.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/RelayCommand.cs`);
@@ -206,7 +210,7 @@ module.exports = class extends baseMixin(BaseGenerator) {
     // RestClient
     this.template('Assets/Packages/Proyecto26.RestClient/RestClient.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/RestClient.cs`);
     this.template('Assets/Packages/Proyecto26.RestClient/RestClientPromise.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/RestClientPromise.cs`);
-    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/Common.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/Common`);
+    this.template('Assets/Packages/Proyecto26.RestClient/Helpers/Common.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/Common.cs`);
     this.template('Assets/Packages/Proyecto26.RestClient/Helpers/ExecuteOnMainThread.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/ExecuteOnMainThread.cs`);
     this.template('Assets/Packages/Proyecto26.RestClient/Helpers/Extensions.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/Extensions.cs`);
     this.template('Assets/Packages/Proyecto26.RestClient/Helpers/HttpBase.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Proyecto26.RestClient/Helpers/HttpBase.cs`);

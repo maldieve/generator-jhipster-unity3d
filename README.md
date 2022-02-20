@@ -53,6 +53,7 @@ To begin to work:
     - link to your module: npm link generator-jhipster-unity3d or yarn link generator-jhipster-unity3d
     - launch your module: yo jhipster-unity3d
 - then, come back here, and begin to code!
+- yo jhipster-unity3d:import-jdl model.jdl
 
 # License
 

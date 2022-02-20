@@ -28,10 +28,20 @@ using QuizzAppGUI.Data.Entities;
 
 namespace <%= unity3dAppName %>GUI.Data.Repositories.<%= entityAngularName %>
 {
-    internal static class <%= entityAngularName %>Repository
+    public static partial class <%= entityAngularName %>Repository
     {
-
+        public static Task<> getQuizzes (){
+            var taskCompletionSource = new TaskCompletionSource<>();
         
+            RestClient.GetArray<>(QuizzApp.BASE_PATH + "/admin/users")
+            .Then(response =>
+            {
+                List<> quizzes = new List<>(response);
+                taskCompletionSource.SetResult();
+            })
+            .Catch(err => QuizzApp.LogMessage("Error", err.Message)).Done();
 
+            return taskCompletionSource.Task;
+        }
     }
 }
