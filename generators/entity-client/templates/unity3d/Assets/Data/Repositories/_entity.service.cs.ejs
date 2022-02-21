@@ -45,7 +45,7 @@ namespace <%= unity3dAppName %>GUI.Data.Repositories.<%= entityAngularName %>
                 List<<%= persistClass %>> entities = new List<<%= persistClass %>>(response);
                 taskCompletionSource.SetResult(entities);
             })
-            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message)).Done();
+            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
 
             return taskCompletionSource.Task;
         }
@@ -59,7 +59,7 @@ namespace <%= unity3dAppName %>GUI.Data.Repositories.<%= entityAngularName %>
                 <%= persistClass %> entity = response;
                 taskCompletionSource.SetResult(entity);
             })
-            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message)).Done();
+            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
 
             return taskCompletionSource.Task;
         }
