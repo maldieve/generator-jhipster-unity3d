@@ -196,7 +196,7 @@ module.exports = class extends baseMixin(BaseGenerator) {
     jsonfile.writeFileSync(packagePath, packageJSON);
 
     // App + Auth
-    this.template('Assets/Scripts/App.cs.ejs', `${UNITY_MAIN_SRC_DIR}Scripts/App.cs`);
+    this.template('Assets/Scripts/App.cs.ejs', `${UNITY_MAIN_SRC_DIR}Scripts/${this.unity3dAppName}App.cs`);
     this.template('Assets/Scripts/Authentication/Model/Token.cs.ejs', `${UNITY_MAIN_SRC_DIR}Scripts/Authentication/Model/Token.cs`);
 
     // MvvM

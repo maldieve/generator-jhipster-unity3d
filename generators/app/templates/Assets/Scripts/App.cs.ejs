@@ -9,7 +9,7 @@ namespace <%= unity3dAppName %>GUI
 {
     public static partial class <%= unity3dAppName %>App
     {
-        public readonly static string BASE_PATH = "http://localhost:8080/api";
+        public readonly static string BASE_PATH = "http://localhost:8080/";
 
         public static void LogMessage(string title, string message)
         {
@@ -19,7 +19,7 @@ namespace <%= unity3dAppName %>GUI
         public static void authenticate(string username, string password) {
             RequestHelper requestOptions = new RequestHelper
             {
-                Uri = BASE_PATH + "/authenticate",
+                Uri = BASE_PATH + "api/authenticate",
                 Body = new Authentication
                 {
                     username = username,
