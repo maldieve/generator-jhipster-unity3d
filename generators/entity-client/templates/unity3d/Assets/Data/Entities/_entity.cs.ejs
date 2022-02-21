@@ -1,5 +1,10 @@
-namespace <%= unity3dAppName %>GUI.Data.Entities.<%= entityAngularName %>
+using System;
+
+namespace <%= unity3dAppName %>GUI.Data.Entities
 {
+  [Serializable]
+  public class <%= persistClass %>
+  {
     <%_ for (const field of fields.filter(field => !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
       <%_ if (typeof field.javadoc !== 'undefined') { _%>
     <%- formatAsFieldJavadoc(field.javadoc) %>
@@ -7,11 +12,16 @@ namespace <%= unity3dAppName %>GUI.Data.Entities.<%= entityAngularName %>
       <%_ if (!dtoMapstruct && typeof field.javadoc !== 'undefined') { _%>
         @Schema(description = "<%- formatAsApiDescription(field.javadoc) %>"<% if (field.fieldValidationRequired) { %>, required = true<% } %>)
       <%_ } _%>
-        private <%= field.javaFieldType %> <%= field.fieldName %>  { get; set; };
+        public <%= field.javaFieldType %> <%= field.fieldName %>  { get; set; }
     
       <%_ if (field.fieldWithContentType) { _%>
-        private String <%= field.fieldName %>ContentType;
+        public string <%= field.fieldName %>ContentType  { get; set; }
     
       <%_ } _%>
     <%_ } _%>
+
+    public override string ToString(){
+      return UnityEngine.JsonUtility.ToJson (this, true);
+    }
+  }
 }

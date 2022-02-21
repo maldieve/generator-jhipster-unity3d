@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Models;
 using Proyecto26;
 using <%= unity3dAppName %>GUI.Authentication.Model;
 
@@ -20,7 +19,7 @@ namespace <%= unity3dAppName %>GUI
             RequestHelper requestOptions = new RequestHelper
             {
                 Uri = BASE_PATH + "api/authenticate",
-                Body = new Authentication
+                Body = new AuthenticationToken
                 {
                     username = username,
                     password = password
