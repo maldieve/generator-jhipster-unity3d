@@ -12,10 +12,10 @@ namespace <%= unity3dAppName %>GUI.Data.Entities
       <%_ if (!dtoMapstruct && typeof field.javadoc !== 'undefined') { _%>
         @Schema(description = "<%- formatAsApiDescription(field.javadoc) %>"<% if (field.fieldValidationRequired) { %>, required = true<% } %>)
       <%_ } _%>
-        public <%= field.javaFieldType %> <%= field.fieldName %>  { get; set; }
+        public <%= field.javaFieldType %> <%= field.fieldName %>
     
       <%_ if (field.fieldWithContentType) { _%>
-        public string <%= field.fieldName %>ContentType  { get; set; }
+        public string <%= field.fieldName %>ContentType
     
       <%_ } _%>
     <%_ } _%>
