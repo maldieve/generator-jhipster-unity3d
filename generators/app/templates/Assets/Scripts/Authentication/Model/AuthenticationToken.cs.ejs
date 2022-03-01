@@ -1,0 +1,16 @@
+using System;
+
+namespace <%= unity3dAppName %>GUI.Authentication.Model
+{
+    [Serializable]
+    public class AuthenticationToken
+    {
+        public string username;
+        public string password;
+        public bool rememberMe;
+
+        public override string ToString(){
+            return UnityEngine.JsonUtility.ToJson (this, true);
+        }
+    }
+}

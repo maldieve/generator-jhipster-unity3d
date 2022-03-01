@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Models;
 using Proyecto26;
 using <%= unity3dAppName %>GUI.Authentication.Model;
 
@@ -9,7 +8,7 @@ namespace <%= unity3dAppName %>GUI
 {
     public static partial class <%= unity3dAppName %>App
     {
-        public readonly static string BASE_PATH = "http://localhost:8080/api";
+        public readonly static string BASE_PATH = "http://localhost:8080/";
 
         public static void LogMessage(string title, string message)
         {
@@ -19,8 +18,8 @@ namespace <%= unity3dAppName %>GUI
         public static void authenticate(string username, string password) {
             RequestHelper requestOptions = new RequestHelper
             {
-                Uri = BASE_PATH + "/authenticate",
-                Body = new Authentication
+                Uri = BASE_PATH + "api/authenticate",
+                Body = new AuthenticationToken
                 {
                     username = username,
                     password = password
