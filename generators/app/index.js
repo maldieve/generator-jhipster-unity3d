@@ -26,9 +26,9 @@ const shelljs = require('shelljs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const spawn = require('cross-spawn');
 const fs = require('fs');
-const packagejs =     ./package.json');
-const utils =   ./utils');
-const baseMixin =     ./generator-base-mixin');
+const packagejs = require('./package.json');
+const utils = require('./utils');
+const baseMixin = require('./generator-base-mixin');
 
 module.exports = class extends baseMixin(BaseGenerator) {
   constructor(args, opts) {
@@ -200,77 +200,77 @@ module.exports = class extends baseMixin(BaseGenerator) {
     this.template('Assets/Scripts/Authentication/Model/AuthenticationToken.cs.ejs', `${UNITY_MAIN_SRC_DIR}Scripts/Authentication/Model/AuthenticationToken.cs`);
     this.template('Assets/Scripts/Authentication/Model/Token.cs.ejs', `${UNITY_MAIN_SRC_DIR}Scripts/Authentication/Model/Token.cs`);
 
-    ./WebSocketSharp/CloseEventArgs.cs.ejs
-    ./WebSocketSharp/HttpBase.cs.ejs
-    ./WebSocketSharp/HttpResponse.cs.ejs
-    ./WebSocketSharp/CloseStatusCode.cs.ejs
-    ./WebSocketSharp/ErrorEventArgs.cs.ejs
-    ./WebSocketSharp/LogLevel.cs.ejs
-    ./WebSocketSharp/Rsv.cs.ejs
-    ./WebSocketSharp/WebSocketFrame.cs.ejs
-    ./WebSocketSharp/Net/HttpBasicIdentity.cs.ejs
-    ./WebSocketSharp/Net/AuthenticationSchemes.cs.ejs
-    ./WebSocketSharp/Net/ClientSslConfiguration.cs.ejs
-    ./WebSocketSharp/Net/HttpListenerResponse.cs.ejs
-    ./WebSocketSharp/Net/HttpRequestHeader.cs.ejs
-    ./WebSocketSharp/Net/ReadBufferState.cs.ejs
-    ./WebSocketSharp/Net/CookieException.cs.ejs
-    ./WebSocketSharp/Net/HttpListener.cs.ejs
-    ./WebSocketSharp/Net/HttpVersion.cs.ejs
-    ./WebSocketSharp/Net/HttpStreamAsyncResult.cs.ejs
-    ./WebSocketSharp/Net/HttpListenerContext.cs.ejs
-    ./WebSocketSharp/Net/EndPointListener.cs.ejs
-    ./WebSocketSharp/Net/LineState.cs.ejs
-    ./WebSocketSharp/Net/WebSockets/TcpListenerWebSocketContext.cs.ejs
-    ./WebSocketSharp/Net/WebSockets/WebSocketContext.cs.ejs
-    ./WebSocketSharp/Net/WebSockets/HttpListenerWebSocketContext.cs.ejs
-    ./WebSocketSharp/Net/WebSockets
-    ./WebSocketSharp/Net/InputChunkState.cs.ejs
-    ./WebSocketSharp/Net/HttpListenerPrefixCollection.cs.ejs
-    ./WebSocketSharp/Net/AuthenticationChallenge.cs.ejs
-    ./WebSocketSharp/Net/HttpConnection.cs.ejs
-    ./WebSocketSharp/Net/CookieCollection.cs.ejs
-    ./WebSocketSharp/Net/HttpUtility.cs.ejs
-    ./WebSocketSharp/Net/WebHeaderCollection.cs.ejs
-    ./WebSocketSharp/Net/HttpListenerRequest.cs.ejs
-    ./WebSocketSharp/Net/ResponseStream.cs.ejs
-    ./WebSocketSharp/Net/HttpListenerPrefix.cs.ejs
-    ./WebSocketSharp/Net/ChunkedRequestStream.cs.ejs
-    ./WebSocketSharp/Net/HttpListenerAsyncResult.cs.ejs
-    ./WebSocketSharp/Net/HttpStatusCode.cs.ejs
-    ./WebSocketSharp/Net/RequestStream.cs.ejs
-    ./WebSocketSharp/Net/EndPointManager.cs.ejs
-    ./WebSocketSharp/Net/Chunk.cs.ejs
-    ./WebSocketSharp/Net/HttpDigestIdentity.cs.ejs
-    ./WebSocketSharp/Net/QueryStringCollection.cs.ejs
-    ./WebSocketSharp/Net/HttpHeaderType.cs.ejs
-    ./WebSocketSharp/Net/Cookie.cs.ejs
-    ./WebSocketSharp/Net/ChunkStream.cs.ejs
-    ./WebSocketSharp/Net/NetworkCredential.cs.ejs
-    ./WebSocketSharp/Net/HttpHeaderInfo.cs.ejs
-    ./WebSocketSharp/Net/AuthenticationBase.cs.ejs
-    ./WebSocketSharp/Net/AuthenticationResponse.cs.ejs
-    ./WebSocketSharp/Net/ServerSslConfiguration.cs.ejs
-    ./WebSocketSharp/Net/InputState.cs.ejs
-    ./WebSocketSharp/Net/HttpResponseHeader.cs.ejs
-    ./WebSocketSharp/Net/HttpListenerException.cs.ejs
-    ./WebSocketSharp/HttpRequest.cs.ejs
-    ./WebSocketSharp/WebSocket.cs.ejs
-    ./WebSocketSharp/Logger.cs.ejs
-    ./WebSocketSharp/ByteOrder.cs.ejs
-    ./WebSocketSharp/WebSocketState.cs.ejs
-    ./WebSocketSharp/CompressionMethod.cs.ejs
-    ./WebSocketSharp/Mask.cs.ejs
-    ./WebSocketSharp/Opcode.cs.ejs
-    ./WebSocketSharp/Ext.cs.ejs
-    ./WebSocketSharp/PayloadData.cs.ejs
-    ./WebSocketSharp/Fin.cs.ejs
-    ./WebSocketSharp/MessageEventArgs.cs.ejs
-    ./WebSocketSharp/WebSocketException.cs.ejs
-    ./WebSocketSharp/LogData.cs.ejs
-    ./StompHelper/StompCommand.cs.ejs
-    ./StompHelper/StompMessageSerializer.cs.ejs
-    ./StompHelper/StompMessage.cs.ejs
+    // Socket
+    this.template('Assets/Packages/WebSocketSharp/CloseEventArgs.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/CloseEventArgs.cs`);
+    this.template('Assets/Packages/WebSocketSharp/HttpBase.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/HttpBase.cs`);
+    this.template('Assets/Packages/WebSocketSharp/HttpResponse.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/HttpResponse.cs`);
+    this.template('Assets/Packages/WebSocketSharp/CloseStatusCode.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/CloseStatusCode.cs`);
+    this.template('Assets/Packages/WebSocketSharp/ErrorEventArgs.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/ErrorEventArgs.cs`);
+    this.template('Assets/Packages/WebSocketSharp/LogLevel.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/LogLevel.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Rsv.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/Rsv.cs`);
+    this.template('Assets/Packages/WebSocketSharp/WebSocketFrame.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/WebSocketFrame.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpBasicIdentity.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpBasicIdentity.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/AuthenticationSchemes.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/AuthenticationSchemes.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/ClientSslConfiguration.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/ClientSslConfiguration.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListenerResponse.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerResponse.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpRequestHeader.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpRequestHeader.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/ReadBufferState.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/ReadBufferState.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/CookieException.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/CookieException.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListener.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListener.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpVersion.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpVersion.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpStreamAsyncResult.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpStreamAsyncResult.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListenerContext.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerContext.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/EndPointListener.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/EndPointListener.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/LineState.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/LineState.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/WebSockets/TcpListenerWebSocketContext.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/TcpListenerWebSocketContext.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/WebSockets/WebSocketContext.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/WebSocketContext.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/WebSockets/HttpListenerWebSocketContext.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerWebSocketContext.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/InputChunkState.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/InputChunkState.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListenerPrefixCollection.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerPrefixCollection.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/AuthenticationChallenge.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/AuthenticationChallenge.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpConnection.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpConnection.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/CookieCollection.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/CookieCollection.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpUtility.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpUtility.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/WebHeaderCollection.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/WebHeaderCollection.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListenerRequest.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerRequest.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/ResponseStream.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/ResponseStream.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListenerPrefix.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerPrefix.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/ChunkedRequestStream.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/ChunkedRequestStream.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListenerAsyncResult.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerAsyncResult.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpStatusCode.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpStatusCode.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/RequestStream.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/RequestStream.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/EndPointManager.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/EndPointManager.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/Chunk.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/Chunk.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpDigestIdentity.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpDigestIdentity.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/QueryStringCollection.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/QueryStringCollection.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpHeaderType.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpHeaderType.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/Cookie.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/Cookie.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/ChunkStream.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/ChunkStream.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/NetworkCredential.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/NetworkCredential.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpHeaderInfo.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpHeaderInfo.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/AuthenticationBase.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/AuthenticationBase.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/AuthenticationResponse.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/AuthenticationResponse.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/ServerSslConfiguration.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/ServerSslConfiguration.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/InputState.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/InputState.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpResponseHeader.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpResponseHeader.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Net/HttpListenerException.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/Net/WebSocketSharp/HttpListenerException.cs`);
+    this.template('Assets/Packages/WebSocketSharp/HttpRequest.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/HttpRequest.cs`);
+    this.template('Assets/Packages/WebSocketSharp/WebSocket.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/WebSocket.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Logger.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/Logger.cs`);
+    this.template('Assets/Packages/WebSocketSharp/ByteOrder.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/ByteOrder.cs`);
+    this.template('Assets/Packages/WebSocketSharp/WebSocketState.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/WebSocketState.cs`);
+    this.template('Assets/Packages/WebSocketSharp/CompressionMethod.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/CompressionMethod.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Mask.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/Mask.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Opcode.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/Opcode.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Ext.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/Ext.cs`);
+    this.template('Assets/Packages/WebSocketSharp/PayloadData.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/PayloadData.cs`);
+    this.template('Assets/Packages/WebSocketSharp/Fin.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/Fin.cs`);
+    this.template('Assets/Packages/WebSocketSharp/MessageEventArgs.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/MessageEventArgs.cs`);
+    this.template('Assets/Packages/WebSocketSharp/WebSocketException.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/WebSocketException.cs`);
+    this.template('Assets/Packages/WebSocketSharp/LogData.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/WebSocketSharp/LogData.cs`);
+    this.template('Assets/Packages/StompHelper/StompCommand.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/StompHelper/StompCommand.cs`);
+    this.template('Assets/Packages/StompHelper/StompMessageSerializer.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/StompHelper/StompMessageSerializer.cs`);
+    this.template('Assets/Packages/StompHelper/StompMessage.cs.ejs', `${UNITY_MAIN_SRC_DIR}Packages/StompHelper/StompMessage.cs`);
 
     // MvvM
     this.template('Assets/Mvvm/ObservableObject.cs.ejs', `${UNITY_MAIN_SRC_DIR}Mvvm/ObservableObject.cs`);
