@@ -55,6 +55,9 @@ To begin to work:
 - then, come back here, and begin to code!
 - yo jhipster-unity3d:import-jdl model.jdl
 
+# Gitting
+git remote add origin https://github.com/maldieve/temp-delete.git
+
 # License
 
 Apache-2.0 © [Gregory Davis](maldieve.com)
