@@ -66,16 +66,30 @@ namespace <%= unity3dAppName %>GUI.Data.Repositories
             return taskCompletionSource.Task;
         }
 
-        public static void createEntity (Entities.<%= persistClass %> entity) {
+        public static Task<Entities.<%= persistClass %>> createEntity (Entities.<%= persistClass %> entity) {
+            var taskCompletionSource = new TaskCompletionSource<Entities.<%= persistClass %>>();
+
             RestClient.Post<Entities.<%= persistClass %>>($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}", entity)
-            .Then(response => <%= unity3dAppName %>App.LogMessage("Success", response.ToString()))
+            .Then(response => {
+                Entities.<%= persistClass %> _entity = response;
+                taskCompletionSource.SetResult(_entity);
+            })
             .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+
+            return taskCompletionSource.Task;
         }
 
-        public static void updateEntity (Entities.<%= persistClass %> entity) {
+        public static Task<Entities.<%= persistClass %>> updateEntity (Entities.<%= persistClass %> entity) {
+            var taskCompletionSource = new TaskCompletionSource<Entities.<%= persistClass %>>();
+
             RestClient.Put<Entities.<%= persistClass %>>($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}/{entity.<%= primaryKey.name %>}", entity)
-            .Then(response => <%= unity3dAppName %>App.LogMessage("Success", response.ToString()))
+            .Then(response => {
+                Entities.<%= persistClass %> _entity = response;
+                taskCompletionSource.SetResult(_entity);
+            })
             .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+
+            return taskCompletionSource.Task;
         }
 
         public static void deleteEntity (int id) {

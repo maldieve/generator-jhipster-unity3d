@@ -42,7 +42,13 @@ const unity3dFiles = {
       templates: [
         {
           file: 'Data/Entities/_entity.cs',
-          renameTo: (generator) => `Data/Entities/${generator.entityAngularName}/${generator.entityAngularName}.cs`
+          renameTo: (generator) => `Data/Entities/${generator.entityAngularName}/${generator.entityAngularName}.cs`,
+          override: false
+        },
+        {
+          file: 'Data/Entities/_base.entity.cs',
+          renameTo: (generator) => `Data/Entities/${generator.entityAngularName}/Base${generator.entityAngularName}.cs`,
+          override: true
         },
         {
           file: 'Data/Repositories/_entity.service.cs',

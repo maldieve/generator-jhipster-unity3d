@@ -3,34 +3,8 @@ using System;
 namespace <%= unity3dAppName %>GUI.Data.Entities
 {
   [Serializable]
-  public class <%= persistClass %>
+  public class <%= persistClass %> : Base<%= persistClass %>
   {
-  <%_ for (const field of fields.filter(field => !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
-    <%_ if (typeof field.javadoc !== 'undefined') { _%>
-  <%- formatAsFieldJavadoc(field.javadoc) %>
-    <%_ } _%>
-    <%_ if (!dtoMapstruct && typeof field.javadoc !== 'undefined') { _%>
-      @Schema(description = "<%- formatAsApiDescription(field.javadoc) %>"<% if (field.fieldValidationRequired) { %>, required = true<% } %>)
-    <%_ } _%>
-    public <%= field.javaFieldType %> <%= field.fieldName %>;
-  
-    <%_ if (field.fieldWithContentType) { _%>
-    public string <%= field.fieldName %>ContentType;
-  
-    <%_ } _%>
-  <%_ } _%>
-  <%_ for (reference of dtoReferences) { _%>
-    <%_ if (reference.collection && reference.relationship) { _%>
-    public Set<<%= asDto(reference.relationship.otherEntity.entityNameCapitalized) %>> <%= reference.name %> = new HashSet<>();
 
-    <%_ } else if (reference.relationship) { _%>
-    public <%= asDto(reference.relationship.otherEntity.entityNameCapitalized) %> <%= reference.name %>;
-      
-    <%_ } _%>
-  <%_ } _%>
-    public override string ToString(){
-      // return UnityEngine.JsonUtility.ToJson (this, true);
-      return this.description;
-    }
   }
 }
