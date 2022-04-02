@@ -92,7 +92,7 @@ namespace <%= unity3dAppName %>GUI.Data.Repositories
             return taskCompletionSource.Task;
         }
 
-        public void deleteEntity (int id) {
+        public void deleteEntity (string id) {
             RestClient.Delete($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}/{id}")
             .Then(response => <%= unity3dAppName %>App.LogMessage("Success", response.ToString()))
             .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
