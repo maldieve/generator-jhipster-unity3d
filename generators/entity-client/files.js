@@ -55,6 +55,11 @@ const unity3dFiles = {
           renameTo: (generator) => `Data/Repositories/${generator.entityAngularName}/${generator.entityAngularName}Repository.cs`
         },
         {
+          file: 'Data/Repositories/_base.entity.service.cs',
+          renameTo: (generator) => `Data/Repositories/${generator.entityAngularName}/Base${generator.entityAngularName}Repository.cs`,
+          override: true
+        },
+        {
           file: 'ViewModels/_entity.view.model.cs',
           renameTo: (generator) => `ViewModels/${generator.entityAngularName}/${generator.entityAngularName}ViewModel.cs`
         },

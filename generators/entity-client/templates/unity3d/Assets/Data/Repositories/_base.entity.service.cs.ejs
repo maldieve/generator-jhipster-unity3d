@@ -1,0 +1,101 @@
+<%#
+ Copyright 2019-Present the original author or authors from the JHipster project.
+
+ This file is part of the JHipster project, see http://www.jhipster.tech/
+ for more information.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-%>
+
+#if UNITY_5_3_OR_NEWER
+#define NOESIS
+using Noesis;
+#else
+using System.Windows.Media;
+#endif
+using System.Collections.Generic;
+
+using Proyecto26;
+
+using <%= unity3dAppName %>GUI;
+using <%= unity3dAppName %>GUI.Data.Entities;
+
+using System.Threading.Tasks;
+
+namespace <%= unity3dAppName %>GUI.Data.Repositories
+{
+    public class Base<%= entityAngularName %>Repository
+    {
+        private string API_URL = "api/<%= entityApiUrl %>";
+
+        public Task<List<<%= persistClass %>>> getEntities () {
+            var taskCompletionSource = new TaskCompletionSource<List<<%= persistClass %>>>();
+        
+            RestClient.GetArray<Entities.<%= persistClass %>>($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}")
+            .Then(response =>
+            {
+                List<Entities.<%= persistClass %>> entities = new List<Entities.<%= persistClass %>>(response);
+                taskCompletionSource.SetResult(entities);
+            })
+            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+
+            return taskCompletionSource.Task;
+        }
+
+        public Task<Entities.<%= persistClass %>> getEntity (string id) {
+            var taskCompletionSource = new TaskCompletionSource<Entities.<%= persistClass %>>();
+        
+            RestClient.Get<Entities.<%= persistClass %>>($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}/{id}")
+            .Then(response =>
+            {
+                Entities.<%= persistClass %> entity = response;
+                taskCompletionSource.SetResult(entity);
+            })
+            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+
+            return taskCompletionSource.Task;
+        }
+
+        public Task<Entities.<%= persistClass %>> createEntity (Entities.<%= persistClass %> entity) {
+            var taskCompletionSource = new TaskCompletionSource<Entities.<%= persistClass %>>();
+
+            RestClient.Post<Entities.<%= persistClass %>>($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}", entity)
+            .Then(response => {
+                Entities.<%= persistClass %> _entity = response;
+                taskCompletionSource.SetResult(_entity);
+            })
+            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+
+            return taskCompletionSource.Task;
+        }
+
+        public Task<Entities.<%= persistClass %>> updateEntity (Entities.<%= persistClass %> entity) {
+            var taskCompletionSource = new TaskCompletionSource<Entities.<%= persistClass %>>();
+
+            RestClient.Put<Entities.<%= persistClass %>>($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}/{entity.<%= primaryKey.name %>}", entity)
+            .Then(response => {
+                Entities.<%= persistClass %> _entity = response;
+                taskCompletionSource.SetResult(_entity);
+            })
+            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+
+            return taskCompletionSource.Task;
+        }
+
+        public void deleteEntity (int id) {
+            RestClient.Delete($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}/{id}")
+            .Then(response => <%= unity3dAppName %>App.LogMessage("Success", response.ToString()))
+            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+        }
+    }
+}
