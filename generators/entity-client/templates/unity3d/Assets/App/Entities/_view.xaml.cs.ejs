@@ -1,0 +1,19 @@
+#if UNITY_5_3_OR_NEWER
+#define NOESIS
+using Noesis;
+#else
+using System.Windows.Controls;
+#endif
+
+using System.Windows.Input;
+using System.Collections.Generic;
+using <%= unity3dAppName %>.View.Entities;
+
+namespace <%= unity3dAppName %>.View.Entities
+{
+  [Serializable]
+  public partial class <%= persistClass %>View : Base<%= persistClass %>View
+  {
+
+  }
+}

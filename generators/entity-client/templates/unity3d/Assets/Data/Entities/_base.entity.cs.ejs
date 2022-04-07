@@ -1,6 +1,6 @@
 using System;
 
-namespace <%= unity3dAppName %>GUI.Data.Entities
+namespace <%= unity3dAppName %>.Data.Entities
 {
   [Serializable]
   public class Base<%= persistClass %>
@@ -12,9 +12,9 @@ namespace <%= unity3dAppName %>GUI.Data.Entities
     <%_ if (!dtoMapstruct && typeof field.javadoc !== 'undefined') { _%>
       @Schema(description = "<%- formatAsApiDescription(field.javadoc) %>"<% if (field.fieldValidationRequired) { %>, required = true<% } %>)
     <%_ } _%>
-    public <%= field.javaFieldType === 'long' ? 'string' : field.javaFieldType %> <%= field.fieldName %>;
+    public <%= field.javaFieldType %> <%= field.fieldName %>;
   
-    public <%= field.javaFieldType === 'long' ? 'string' : field.javaFieldType %> <%= javaBeanCase(field.fieldName) %> { get {return <%= field.fieldName %>; } set {<%= field.fieldName %> = value; } }
+    public <%= field.javaFieldType %> <%= javaBeanCase(field.fieldName) %> { get {return <%= field.fieldName %>; } set {<%= field.fieldName %> = value; } }
 
     <%_ if (field.fieldWithContentType) { _%>
     public string <%= field.fieldName %>ContentType;

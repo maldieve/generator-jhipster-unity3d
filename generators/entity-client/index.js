@@ -137,7 +137,7 @@ module.exports = class extends baseMixin(BaseGenerator) {
       _field = 'double';
     }
     if ( field === 'Long' ) {
-      _field = 'long';
+      _field = 'string';
     }
     if ( field === 'Boolean' ) {
       _field = 'bool';

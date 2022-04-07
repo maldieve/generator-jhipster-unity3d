@@ -1,0 +1,74 @@
+#if UNITY_5_3_OR_NEWER
+#define NOESIS
+using Noesis;
+using System;
+using System.Collections.Generic;
+
+#else
+
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+
+using System.Windows.Media.Animation;
+
+#endif
+
+using System.Windows.Input;
+using System.Threading.Tasks;
+
+using <%= unity3dAppName %>;
+using <%= unity3dAppName %>.Data.Entities;
+
+namespace <%= unity3dAppName %>
+{
+    public class <%= persistClass %>ViewModel : NotifyPropertyChangedBase
+    {
+        object param;
+
+        private <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository <%= javaBeanCase(persistClass) %>Repository = new <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository();
+        public ICommand Add<%= persistClass %>Command { get; private set; }
+        public ICommand Delete<%= persistClass %>Command { get; private set; }	
+
+        private int _templateQuizz = -1;
+        public List<<%= persistClass %>> <%= persistClass %>s { 
+            get { 
+                _<%= javaBeanCase(persistClass) %>s.Sort((a, b) => a.ToString().CompareTo(b.ToString())); return _<%= javaBeanCase(persistClass) %>s; 
+            } 
+            private set { } 
+        }
+
+        private List<<%= persistClass %>> _<%= javaBeanCase(persistClass) %>s = new List<<%= persistClass %>>();
+
+        public Base<%= persistClass %>ViewModel(object param){
+
+            this.param = param;
+
+            Add<%= persistClass %>Command = new DelegateCommand(OnAdd<%= persistClass %>);
+            Delete<%= persistClass %>Command = new DelegateCommand(OnDelete<%= persistClass %>);
+
+            init();
+
+        }
+
+        public async void init() {
+#if UNITY_5_3_OR_NEWER
+            _<%= javaBeanCase(persistClass) %>Quizzes = await <%= javaBeanCase(persistClass) %>Repository.getEntities();
+            OnPropertyChanged("<%= persistClass %>s");
+#endif
+        }
+
+        private void OnAdd<%= persistClass %>(object param){
+            ViewModel.delegateCommands[<%= unity3dAppName %>App.<%= persistClass %>_DETAIL].Execute(param);    
+        }
+        private async void OnDelete<%= persistClass %>(object param)
+        {
+#if UNITY_5_3_OR_NEWER
+            await <%= javaBeanCase(persistClass) %>Repository.deleteEntity((string)param);
+            _<%= javaBeanCase(persistClass) %>s = await <%= javaBeanCase(persistClass) %>Repository.getEntities();
+            OnPropertyChanged("<%= persistClass %>s");
+#endif
+        }
+    }
+}

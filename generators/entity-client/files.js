@@ -19,6 +19,7 @@
 const _ = require('lodash');
 const chalk = require('chalk');
 const fs = require('fs');
+const _fs = require('fs-extra');
 const constants = require('generator-jhipster/generators/generator-constants');
 
 /* Constants use throughout */
@@ -63,6 +64,22 @@ const unity3dFiles = {
           file: 'ViewModels/_entity.view.model.cs',
           renameTo: (generator) => `ViewModels/${generator.entityAngularName}/${generator.entityAngularName}ViewModel.cs`
         },
+        {
+          file: 'App/Entities/_base.view.xaml.cs',
+          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/Base${generator.entityAngularName}View.xaml.cs`
+        },
+        {
+          file: 'App/Entities/_view.xaml.cs',
+          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.xaml.cs`
+        },
+        {
+          file: 'App/Entities/_base.view.model.cs',
+          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/Base${generator.entityAngularName}View.model.cs`
+        },
+        {
+          file: 'App/Entities/_view.model.cs',
+          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.model.cs`
+        }
       ]
     }
   ]
