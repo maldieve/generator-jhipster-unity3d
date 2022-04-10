@@ -1,7 +1,6 @@
 #if UNITY_5_3_OR_NEWER
 #define NOESIS
 using Noesis;
-using System;
 using System.Collections.Generic;
 
 #else
@@ -15,6 +14,7 @@ using System.Windows.Media.Animation;
 
 #endif
 
+using System;
 using System.Windows.Input;
 using System.Threading.Tasks;
 
@@ -25,5 +25,8 @@ namespace <%= unity3dAppName %>
 {
     public class <%= persistClass %>ViewModel : Base<%= persistClass %>ViewModel
     {
+        public <%= persistClass %>ViewModel(object param) : base(param)
+        {
+        }
     }
 }

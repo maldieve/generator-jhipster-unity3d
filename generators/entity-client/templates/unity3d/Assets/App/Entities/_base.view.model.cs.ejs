@@ -1,7 +1,6 @@
 #if UNITY_5_3_OR_NEWER
 #define NOESIS
 using Noesis;
-using System;
 using System.Collections.Generic;
 
 #else
@@ -15,6 +14,7 @@ using System.Windows.Media.Animation;
 
 #endif
 
+using System;
 using System.Windows.Input;
 using System.Threading.Tasks;
 
@@ -23,7 +23,7 @@ using <%= unity3dAppName %>.Data.Entities;
 
 namespace <%= unity3dAppName %>
 {
-    public class <%= persistClass %>ViewModel : NotifyPropertyChangedBase
+    public class Base<%= persistClass %>ViewModel : NotifyPropertyChangedBase
     {
         object param;
 
@@ -31,15 +31,15 @@ namespace <%= unity3dAppName %>
         public ICommand Add<%= persistClass %>Command { get; private set; }
         public ICommand Delete<%= persistClass %>Command { get; private set; }	
 
-        private int _templateQuizz = -1;
+        private int _<%= entityInstance %> = -1;
         public List<<%= persistClass %>> <%= persistClass %>s { 
             get { 
-                _<%= javaBeanCase(persistClass) %>s.Sort((a, b) => a.ToString().CompareTo(b.ToString())); return _<%= javaBeanCase(persistClass) %>s; 
+                _<%= entityInstance %>s.Sort((a, b) => a.ToString().CompareTo(b.ToString())); return _<%= entityInstance %>s; 
             } 
             private set { } 
         }
 
-        private List<<%= persistClass %>> _<%= javaBeanCase(persistClass) %>s = new List<<%= persistClass %>>();
+        private List<<%= persistClass %>> _<%= entityInstance %>s = new List<<%= persistClass %>>();
 
         public Base<%= persistClass %>ViewModel(object param){
 
@@ -54,7 +54,7 @@ namespace <%= unity3dAppName %>
 
         public async void init() {
 #if UNITY_5_3_OR_NEWER
-            _<%= javaBeanCase(persistClass) %>Quizzes = await <%= javaBeanCase(persistClass) %>Repository.getEntities();
+            _<%= entityInstance %>s = await <%= javaBeanCase(persistClass) %>Repository.getEntities();
             OnPropertyChanged("<%= persistClass %>s");
 #endif
         }
@@ -66,7 +66,7 @@ namespace <%= unity3dAppName %>
         {
 #if UNITY_5_3_OR_NEWER
             await <%= javaBeanCase(persistClass) %>Repository.deleteEntity((string)param);
-            _<%= javaBeanCase(persistClass) %>s = await <%= javaBeanCase(persistClass) %>Repository.getEntities();
+            _<%= entityInstance %>s = await <%= javaBeanCase(persistClass) %>Repository.getEntities();
             OnPropertyChanged("<%= persistClass %>s");
 #endif
         }

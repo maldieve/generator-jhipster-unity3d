@@ -70,7 +70,8 @@ const unity3dFiles = {
         },
         {
           file: 'App/Entities/_view.xaml.cs',
-          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.xaml.cs`
+          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.xaml.cs`,
+          override: false
         },
         {
           file: 'App/Entities/_base.view.model.cs',
@@ -78,7 +79,12 @@ const unity3dFiles = {
         },
         {
           file: 'App/Entities/_view.model.cs',
-          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.model.cs`
+          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.model.cs`,
+          override: false
+        },
+        {
+          file: 'App/Entities/_view.xaml',
+          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.xaml`
         }
       ]
     }

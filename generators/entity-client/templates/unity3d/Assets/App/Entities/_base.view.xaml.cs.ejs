@@ -1,10 +1,12 @@
 #if UNITY_5_3_OR_NEWER
 #define NOESIS
 using Noesis;
+using System.Collections.Generic;
 #else
 using System.Windows.Controls;
 #endif
 
+using System;
 using System.Windows.Input;
 using System.Collections.Generic;
 
@@ -13,17 +15,25 @@ namespace <%= unity3dAppName %>.View.Entities
   [Serializable]
   public partial class Base<%= persistClass %>View : UserControl
   {
-    public TemplateQuizzView()
+   object param = null;
+
+   public Base<%= persistClass %>View()
     {
-        InitializeComponent();
+      InitializeComponent();
+    }
+
+    public Base<%= persistClass %>View(object param)
+    {
+      this.param = param;
+      InitializeComponent();
     }
 
 #if NOESIS
 
     private void InitializeComponent()
     {
-        DataContext = new <%= persistClass %>ViewModel();
-        NoesisUnity.LoadComponent(this);
+      DataContext = new <%= persistClass %>ViewModel(param);
+      NoesisUnity.LoadComponent(this);
     }
 #endif
 
