@@ -53,7 +53,8 @@ const unity3dFiles = {
         },
         {
           file: 'Data/Repositories/_entity.service.cs',
-          renameTo: (generator) => `Data/Repositories/${generator.entityAngularName}/${generator.entityAngularName}Repository.cs`
+          renameTo: (generator) => `Data/Repositories/${generator.entityAngularName}/${generator.entityAngularName}Repository.cs`,
+          override: false
         },
         {
           file: 'Data/Repositories/_base.entity.service.cs',
@@ -62,7 +63,8 @@ const unity3dFiles = {
         },
         {
           file: 'ViewModels/_entity.view.model.cs',
-          renameTo: (generator) => `ViewModels/${generator.entityAngularName}/${generator.entityAngularName}ViewModel.cs`
+          renameTo: (generator) => `ViewModels/${generator.entityAngularName}/${generator.entityAngularName}ViewModel.cs`,
+          override: false
         },
         {
           file: 'App/Entities/_base.view.xaml.cs',
