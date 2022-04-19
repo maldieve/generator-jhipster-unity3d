@@ -45,13 +45,13 @@
 
         <b:Interaction.Triggers>
             <b:EventTrigger EventName="Loaded">
-                <b:ChangePropertyAction TargetName="LayoutRoot" PropertyName="Tag" Value="<%= persistClass %>iew" />
+                <b:ChangePropertyAction TargetName="LayoutRoot" PropertyName="Tag" Value="<%= persistClass %>View" />
             </b:EventTrigger>
-            <b:DataTrigger Binding="{Binding Tag, ElementName=LayoutRoot}" Value="<%= persistClass %>iew">
+            <b:DataTrigger Binding="{Binding Tag, ElementName=LayoutRoot}" Value="<%= persistClass %>View">
                 <b:ControlStoryboardAction Storyboard="{StaticResource FadeIn}" />
             </b:DataTrigger>
             <b:DataTrigger Binding="{Binding State}" Comparison="NotEqual"
-                Value="{x:Static local:State.<%= persistClass %>iew}">
+                Value="{x:Static local:State.<%= persistClass %>View}">
                 <b:ControlStoryboardAction Storyboard="{StaticResource FadeOut}" />
             </b:DataTrigger>
             <b:KeyTrigger Key="Esc" ActiveOnFocus="True">

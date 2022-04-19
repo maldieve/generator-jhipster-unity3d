@@ -67,10 +67,6 @@ const unity3dFiles = {
           override: false
         },
         {
-          file: 'App/Entities/_base.view.xaml.cs',
-          renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/Base${generator.entityAngularName}View.xaml.cs`
-        },
-        {
           file: 'App/Entities/_view.xaml.cs',
           renameTo: (generator) => `${_fs.readJSONSync('.jhipster-unity3d.json').unity3dAppName}/Entities/${generator.entityAngularName}/${generator.entityAngularName}View.xaml.cs`,
           override: false
