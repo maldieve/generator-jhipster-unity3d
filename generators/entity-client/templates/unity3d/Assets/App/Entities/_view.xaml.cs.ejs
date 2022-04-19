@@ -1,25 +1,39 @@
 #if UNITY_5_3_OR_NEWER
 #define NOESIS
 using Noesis;
+using System.Collections.Generic;
 #else
 using System.Windows.Controls;
 #endif
 
 using System.Windows.Input;
-using System;
 using System.Collections.Generic;
-using <%= unity3dAppName %>.View.Entities;
 
-namespace <%= unity3dAppName %>.View.Entities
+namespace <%= unity3dAppName %>
 {
-  [Serializable]
-  public partial class <%= persistClass %>View : Base<%= persistClass %>View
+  public partial class <%= persistClass %>View : UserControl
   {
-    public <%= persistClass %>View() : base(null)
+   object param = null;
+
+   public Base<%= persistClass %>View()
     {
+      InitializeComponent();
     }
-    public <%= persistClass %>View(object param) : base(param)
+
+    public Base<%= persistClass %>View(object param)
     {
+      this.param = param;
+      InitializeComponent();
     }
+
+#if NOESIS
+
+    private void InitializeComponent()
+    {
+      DataContext = new <%= persistClass %>ViewModel(param);
+      NoesisUnity.LoadComponent(this);
+    }
+#endif
+
   }
 }
