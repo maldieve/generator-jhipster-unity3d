@@ -1,0 +1,79 @@
+#if UNITY_5_3_OR_NEWER
+#define NOESIS
+using Noesis;
+using System.Collections.Generic;
+
+#else
+
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+
+using System.Windows.Media.Animation;
+
+#endif
+
+using System;
+using System.Windows.Input;
+using System.Threading.Tasks;
+
+using <%= unity3dAppName %>;
+using <%= unity3dAppName %>.Data.Entities;
+
+namespace <%= unity3dAppName %>
+{
+    public class Base<%= persistClass %>DetailViewModel : NotifyPropertyChangedBase
+    {
+        private <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository <%= javaBeanCase(persistClass) %>Repository = new <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository();
+        public ICommand Add<%= persistClass %>Command { get; private set; }
+        public ICommand Delete<%= persistClass %>Command { get; private set; }	
+
+        <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+        private <%= field.javaFieldType %> <%= field.fieldName %>;
+        public <%= field.javaFieldType %> <%= javaBeanCase(field.fieldName) %> {get {return <%= field.fieldName %>;} set {<%= field.fieldName %> = value;} }
+        <%_ } _%>
+
+        public Base<%= persistClass %>DetailViewModel(object param){
+
+            ExitCommand = new DelegateCommand(OnExit);
+            Add<%= persistClass %>Command = new DelegateCommand(OnAdd<%= persistClass %>);
+
+            init(param);
+
+        }
+
+        public async void init(object param) {
+#if UNITY_5_3_OR_NEWER
+            if (param != null && param != ""){
+                <%= persistClass %> entity = await <%= entityInstance %>Repository.getEntity((string)param);
+                <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+                <%= field.fieldName %> = entity.<%= field.fieldName %>;
+                OnPropertyChanged("<%= javaBeanCase(field.fieldName) %>");
+                <%_ } _%>
+            }
+#endif
+        }
+
+        private void OnAdd<%= persistClass %>(object param){
+            <%= persistClass %> entity = new <%= persistClass %> { 
+            <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+                <%= field.fieldName === 'id' ? field.fieldName : ', ' + field.fieldName %>
+            <%_ } _%>
+            };
+            #if UNITY_5_3_OR_NEWER
+            if (id != null) {
+                entity = await <%= entityInstance %>Repository.updateEntity(entity);
+            } else {
+                entity = await <%= entityInstance %>Repository.createEntity(entity);
+            }
+            id = entity.Id;
+            OnPropertyChanged("Id");
+#endif
+        }
+
+        private void OnExit(object param){
+            ViewModel.delegateCommands[<%= unity3dAppName %>App.MENU].Execute(param);    
+        }
+    }
+}

@@ -11,16 +11,16 @@ using System.Collections.Generic;
 
 namespace <%= unity3dAppName %>
 {
-  public partial class <%= persistClass %>View : UserControl
+  public partial class <%= persistClass %>DetailView : UserControl
   {
    object param = null;
 
-   public <%= persistClass %>View()
+   public <%= persistClass %>DetailView()
     {
       InitializeComponent();
     }
 
-    public <%= persistClass %>View(object param)
+    public <%= persistClass %>DetailView(object param)
     {
       this.param = param;
       InitializeComponent();
@@ -30,7 +30,7 @@ namespace <%= unity3dAppName %>
 
     private void InitializeComponent()
     {
-      DataContext = new <%= persistClass %>ViewModel(param);
+      DataContext = new <%= persistClass %>DetailViewModel(param);
       NoesisUnity.LoadComponent(this);
     }
 #endif
