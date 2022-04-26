@@ -25,9 +25,9 @@ namespace <%= unity3dAppName %>
 {
     public class Base<%= persistClass %>DetailViewModel : NotifyPropertyChangedBase
     {
-        private <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository <%= javaBeanCase(persistClass) %>Repository = new <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository();
+        private <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository <%= entityInstance %>Repository = new <%= unity3dAppName %>.Data.Repositories.<%= persistClass %>Repository();
         public ICommand Add<%= persistClass %>Command { get; private set; }
-        public ICommand Delete<%= persistClass %>Command { get; private set; }	
+        public ICommand ExitCommand { get; private set; }	
 
         <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
         private <%= field.javaFieldType %> <%= field.fieldName %>;
@@ -55,10 +55,10 @@ namespace <%= unity3dAppName %>
 #endif
         }
 
-        private void OnAdd<%= persistClass %>(object param){
+        private async void OnAdd<%= persistClass %>(object param){
             <%= persistClass %> entity = new <%= persistClass %> { 
             <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
-                <%= field.fieldName === 'id' ? field.fieldName : ', ' + field.fieldName %>
+                <%= field.fieldName === 'id' ? field.fieldName + ' = ' + field.fieldName : ', ' + field.fieldName + ' = ' + field.fieldName %>
             <%_ } _%>
             };
             #if UNITY_5_3_OR_NEWER
