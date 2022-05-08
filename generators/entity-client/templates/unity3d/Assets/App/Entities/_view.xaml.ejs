@@ -213,6 +213,8 @@
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" Margin="4">
                                                 <Button x:Name="BtnAdd" Content="Add"
+                                                    Command="{Binding DataContext.Add<%= persistClass %>Command, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding Id}"
                                                     Style="{StaticResource Style.Button.GridAdd}" Margin="5,0,0,0"
                                                     Width="55" Height="22" />
                                                 <Button x:Name="BtnUpdate" Content="Update"
