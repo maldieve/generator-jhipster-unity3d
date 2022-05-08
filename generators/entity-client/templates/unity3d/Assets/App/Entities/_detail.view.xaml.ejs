@@ -6,234 +6,170 @@
     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions" xmlns:local="clr-namespace:<%= unity3dAppName %>"
     d:DesignWidth="1280" d:DesignHeight="720">
 
-    <UserControl.Resources>
-        <Storyboard x:Key="FadeIn">
-            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)"
-                Storyboard.TargetName="LayoutRoot">
-                <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
-            </BooleanAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                Storyboard.TargetName="LayoutRoot">
-                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="FadeOut">
-            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)"
-                Storyboard.TargetName="LayoutRoot">
-                <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
-            </BooleanAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                Storyboard.TargetName="LayoutRoot">
-                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <SineEase EasingMode="EaseInOut" />
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </UserControl.Resources>
+<UserControl.Resources>
+    <Storyboard x:Key="FadeIn">
+        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="LayoutRoot">
+            <DiscreteBooleanKeyFrame KeyTime="0:0:2" Value="True"/>
+        </BooleanAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="LayoutRoot">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="AddTemplateQuizzButton">
+            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <BackEase EasingMode="EaseOut" Amplitude="0.2"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="AddTemplateQuizzButton">
+            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <BackEase EasingMode="EaseOut" Amplitude="0.2"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="FadeOut">
+        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="LayoutRoot">
+            <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="False"/>
+        </BooleanAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="LayoutRoot">
+            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <SineEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
 
-    <Viewbox x:Name="LayoutRoot" RenderTransformOrigin="0.5,0.5" IsEnabled="False" VerticalAlignment="Stretch"
-        HorizontalAlignment="Center">
+</UserControl.Resources>
 
-        <Viewbox.Resources>
-            <LinearGradientBrush x:Key="BgBrush" StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Offset="0" Color="#FF9BDEFF" />
-                <GradientStop Offset="1" Color="#FF69B5FF" />
-            </LinearGradientBrush>
-        </Viewbox.Resources>
+<Viewbox x:Name="LayoutRoot" Margin="20">
 
-        <b:Interaction.Triggers>
-            <b:EventTrigger EventName="Loaded">
-                <b:ChangePropertyAction TargetName="LayoutRoot" PropertyName="Tag" Value="<%= persistClass %>View" />
-            </b:EventTrigger>
-            <b:DataTrigger Binding="{Binding Tag, ElementName=LayoutRoot}" Value="<%= persistClass %>View">
-                <b:ControlStoryboardAction Storyboard="{StaticResource FadeIn}" />
-            </b:DataTrigger>
-            <b:DataTrigger Binding="{Binding State}" Comparison="NotEqual"
-                Value="{x:Static local:State.<%= persistClass %>View}">
-                <b:ControlStoryboardAction Storyboard="{StaticResource FadeOut}" />
-            </b:DataTrigger>
-            <b:KeyTrigger Key="Esc" ActiveOnFocus="True">
-                <b:PlaySoundAction Source="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Sounds/WaterDropBig.mp3" Volume="0.5" />
-                <b:InvokeCommandAction Command="{Binding MenuCommand}" />
-            </b:KeyTrigger>
-        </b:Interaction.Triggers>
-        <DockPanel x:Name="DockPanel" Height="690" Margin="0,0,0,0" Width="1250">
-            <Border x:Name="TopPanel" DockPanel.Dock="Top" Margin="4,0,4,4" Padding="0" Height="75"
-                Background="#99031D29" CornerRadius="20,20,20,20">
+    <Viewbox.Resources>
+        <LinearGradientBrush x:Key="BgBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0" Color="#FF9BDEFF"/>
+            <GradientStop Offset="1" Color="#FF69B5FF"/>
+        </LinearGradientBrush>
+    </Viewbox.Resources>
 
-                <TextBlock Text="Template Quizz View!" FontSize="48"
-                    FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#Jungle Adventurer" Margin="0,0,0,0"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Height="69" Width="500"
-                    TextAlignment="Center" Padding="0,10,0,0" Background="#FF031D29">
-                    <TextBlock.Effect>
-                        <DropShadowEffect />
-                    </TextBlock.Effect>
-                    <TextBlock.Foreground>
-                        <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
-                            <GradientStop Color="#FFE0EAF1" Offset="0" />
-                            <GradientStop Color="#FFFD7A0A" Offset="1" />
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:ChangePropertyAction TargetName="LayoutRoot" PropertyName="Tag" Value="TemplateQuizzDetail"/>
+        </b:EventTrigger>
+        <b:DataTrigger Binding="{Binding Tag, ElementName=LayoutRoot}" Value="TemplateQuizzDetail">
+            <b:ControlStoryboardAction Storyboard="{StaticResource FadeIn}"/>
+        </b:DataTrigger>
+        <b:DataTrigger Binding="{Binding State}" Comparison="NotEqual" Value="{x:Static local:State.TemplateQuizzDetail}">
+            <b:ControlStoryboardAction Storyboard="{StaticResource FadeOut}"/>
+        </b:DataTrigger>
+        <b:KeyTrigger Key="Esc" ActiveOnFocus="True">
+            <b:PlaySoundAction Source="/Quizz3D;component/Assets/Quizz3D/Sounds/WaterDropBig.mp3" Volume="0.5"/>
+            <b:InvokeCommandAction Command="{Binding MenuCommand}"/>
+        </b:KeyTrigger>
+    </b:Interaction.Triggers>
+
+    <DockPanel x:Name="DockPanel">
+        <Border DockPanel.Dock="Top" Margin="4,0,4,4" Padding="0" Height="75" Background="#99031D29" CornerRadius="10">
+            <TextBlock Text="Add Quizz!" FontSize="48" FontFamily="/Quizz3D;component/Assets/Quizz3D/Fonts/#Jungle Adventurer" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="69" Width="500" TextAlignment="Center" Padding="0,10,0,0" Background="#FF031D29">
+                <TextBlock.Effect>
+                    <DropShadowEffect/>
+                </TextBlock.Effect>
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                        <GradientStop Color="#FFE0EAF1" Offset="0"/>
+                        <GradientStop Color="#FFFD7A0A" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </Border>
+
+        <Border DockPanel.Dock="Left" BorderThickness="5" Margin="0,0,0,0" Padding="0" Width="425" CornerRadius="20,20,20,20">
+            <local:LeftMenuPanel x:Name="LeftMenuPanel" ExitButton="MAIN MENU" ExitButtonCommand="ExitCommand" ButtonOne="QUIZZ" ButtonOneCommand="OnQuizz" Description="Add A Quizz" AcceptText="ACCEPT" CancelText="QUIT" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,10" Width="450" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <local:LeftMenuPanel.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </local:LeftMenuPanel.RenderTransform>
+            </local:LeftMenuPanel>
+
+        </Border>
+        <Border DockPanel.Dock="Right" BorderThickness="2" Margin="4" Padding="0" CornerRadius="20,20,20,20">
+            <Grid Margin="0,0,0,0">
+                <Border BorderThickness="5" CornerRadius="10" Padding="0,10,0,0" Margin="0,10,0,0">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF011721" Offset="0"/>
+                            <GradientStop Color="#FF031D29" Offset="1"/>
+                            <GradientStop Color="#FF0C3F57" Offset="0.221"/>
+                            <GradientStop Color="#CC387795" Offset="0.81"/>
                         </LinearGradientBrush>
-                    </TextBlock.Foreground>
-                </TextBlock>
-            </Border>
-            <Border x:Name="BottomPanel" BorderThickness="5" DockPanel.Dock="Bottom" Margin="4" Padding="0">
-                <Border.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF011721" Offset="0" />
-                        <GradientStop Color="#FF031D29" Offset="1" />
-                        <GradientStop Color="#FF0C3F57" Offset="0.221" />
-                        <GradientStop Color="#CC387795" Offset="0.81" />
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#6617506B" Offset="0" />
-                        <GradientStop Color="#66125D80" Offset="1" />
-                        <GradientStop Color="#66071C23" Offset="0.204" />
-                        <GradientStop Color="#660C313E" Offset="0.514" />
-                        <GradientStop Color="#660F4F6D" Offset="0.84" />
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Margin="8">
-                        <TextBlock Text="Page 1 of 1" FontSize="24"
-                            FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#White Rabbit" Foreground="White" />
+                    </Border.BorderBrush>
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#6617506B" Offset="0"/>
+                            <GradientStop Color="#66125D80" Offset="1"/>
+                            <GradientStop Color="#66071C23" Offset="0.204"/>
+                            <GradientStop Color="#660C313E" Offset="0.514"/>
+                            <GradientStop Color="#660F4F6D" Offset="0.84"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                    <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+                    <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Label Content="<%= javaBeanCase(field.fieldName) %>" HorizontalAlignment="Left" Name="LBL<%= javaBeanCase(field.fieldName) %>" VerticalAlignment="Center"
+                            Margin="13,0,0,0" Foreground="#FF00B3FA" />
+                        <TextBox Text="{Binding <%= javaBeanCase(field.fieldName) %>}" Style="{StaticResource Style.Text.Box}" Name="<%= javaBeanCase(field.fieldName) %>"
+                            Margin="10,0,10,10" Foreground="#FFA5CCCF" Padding="0,10,0,0" HorizontalAlignment="Center"
+                            FontFamily="White Rabbit" FontStyle="Normal" Width="400" Height="50">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="GotFocus">
+                                    <noesis:SelectAllAction />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                            <TextBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform />
+                                    <SkewTransform />
+                                    <RotateTransform />
+                                    <TranslateTransform />
+                                </TransformGroup>
+                            </TextBox.RenderTransform>
+                        </TextBox>
                     </StackPanel>
-                </Grid>
-            </Border>
-            <Border x:Name="LeftPanel" BorderThickness="5" Margin="4" Padding="0" Width="275"
-                CornerRadius="20,20,20,20">
-                <Border.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF011721" Offset="0" />
-                        <GradientStop Color="#FF031D29" Offset="1" />
-                        <GradientStop Color="#FF0C3F57" Offset="0.221" />
-                        <GradientStop Color="#CC387795" Offset="0.81" />
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#6617506B" Offset="0" />
-                        <GradientStop Color="#66125D80" Offset="1" />
-                        <GradientStop Color="#66071C23" Offset="0.204" />
-                        <GradientStop Color="#660C313E" Offset="0.514" />
-                        <GradientStop Color="#660F4F6D" Offset="0.84" />
-                    </LinearGradientBrush>
-                </Border.Background>
-                <local:LeftMenuPanel x:Name="LeftMenuPanel" ExitButton="MAIN MENU" ExitButtonCommand="ExitCommand"
-                    ButtonOne="ADD QUIZZ ENTITY" ButtonOneCommand="On<%= persistClass %>Detail" Description="QUIZZ VIEW"
-                    AcceptText="ACCEPT" CancelText="QUIT" RenderTransformOrigin="0.5,0.5" Margin="5"
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <local:LeftMenuPanel.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform />
-                            <SkewTransform />
-                            <RotateTransform />
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </local:LeftMenuPanel.RenderTransform>
-                </local:LeftMenuPanel>
-            </Border>
-            <Border x:Name="CenterPanel" DockPanel.Dock="Left" BorderThickness="5" CornerRadius="8" Margin="4"
-                Padding="0">
-                <Border.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF011721" Offset="0" />
-                        <GradientStop Color="#FF031D29" Offset="1" />
-                        <GradientStop Color="#FF0C3F57" Offset="0.221" />
-                        <GradientStop Color="#CC387795" Offset="0.81" />
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#6617506B" Offset="0" />
-                        <GradientStop Color="#66125D80" Offset="1" />
-                        <GradientStop Color="#66071C23" Offset="0.204" />
-                        <GradientStop Color="#660C313E" Offset="0.514" />
-                        <GradientStop Color="#660F4F6D" Offset="0.84" />
-                    </LinearGradientBrush>
-                </Border.Background>
+                    <%_ } _%>
 
-                <Grid x:Name="DataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Grid.Resources>
+                    <Rectangle Height="3
+                                   " Width="707" Margin="0,10,0,10">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#00A5CCCF"/>
+                                <GradientStop Color="#7FA5CCCF" Offset="0.4"/>
+                                <GradientStop Color="#7FA5CCCF" Offset="0.6"/>
+                                <GradientStop Offset="1" Color="#00A5CCCF"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Button x:Name="Add<%= persistClass %>Button" Content="Accept" Style="{StaticResource Style.Button.Menu}" Command="{Binding Add<%= persistClass %>Command}" Margin="0,20,0,10"/>
+                    <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Status:" HorizontalAlignment="Left" Name="New<%= persistClass %>DebugIDLabel" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="#FF00B3FA"/>
+                        <TextBlock noesis:Text.Placeholder="New <%= persistClass %> Added..." Margin="10,0,10,10" Foreground="#FFA5CCCF" Padding="0,10,0,0" HorizontalAlignment="Center" FontFamily="White Rabbit" FontStyle="Normal" Width="400" Height="50"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </DockPanel>
 
-                        <AlternationConverter x:Key="RowBackgroundConverter">
-                            <SolidColorBrush Color="#4C569FBD" />
-                            <SolidColorBrush Color="#99122831" />
-                        </AlternationConverter>
-
-                        <Style x:Key="ItemStyle" TargetType="ListViewItem"
-                            BasedOn="{StaticResource {x:Type ListViewItem}}">
-                            <Setter Property="OverridesDefaultStyle"
-                                Value="True"/><Setter Property="Foreground"
-                                Value="White"/><Setter Property="Background"
-                                Value="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource Self}, Converter={StaticResource RowBackgroundConverter}}"/><Setter Property="HorizontalContentAlignment"
-                                Value="Left"/>
-                        </Style>
-
-                        <Style x:Key="HeaderStyle" TargetType="GridViewColumnHeader"
-                            BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
-                            <Setter Property="Background"
-                                Value="#600A3D5F"/><Setter Property="Foreground"
-                                Value="White"/><Setter Property="FontWeight"
-                                Value="Bold"/><Setter Property="HorizontalContentAlignment"
-                                Value="Center"/>
-                        </Style>
-
-                        <Style x:Key="IdHeaderStyle" TargetType="GridViewColumnHeader"
-                            BasedOn="{StaticResource HeaderStyle}">
-                            <Setter Property="Background"
-                                Value="#CC5090BB"/>
-                        </Style>
-                    </Grid.Resources>
-
-                    <ListView ItemsSource="{Binding <%= persistClass %>s}" OverridesDefaultStyle="True"
-                        ItemContainerStyle="{StaticResource ItemStyle}"
-                        BorderBrush="{DynamicResource Brush.Border.Normal}" SelectionMode="Single"
-                        ScrollViewer.HorizontalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch"
-                        BorderThickness="1" AlternationCount="2" ScrollViewer.CanContentScroll="True"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto" FontFamily="White Rabbit">
-                        <ListView.View>
-                            <GridView ColumnHeaderContainerStyle="{StaticResource HeaderStyle}">
-<%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
-                                <GridViewColumn Header="<%= javaBeanCase(field.fieldName) %>" x:Name="<%= persistClass %><%= javaBeanCase(field.fieldName) %>" Width="<%= field.fieldName == 'id' ? 60 : 200 %>">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock LineHeight="13" TextWrapping="Wrap" Text="{Binding <%= javaBeanCase(field.fieldName) %>}"
-                                                TextAlignment="Right" HorizontalAlignment="Right" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-<%_ } _%>
-                                <GridViewColumn Header="Options">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Margin="4">
-                                                <Button x:Name="BtnAdd" Content="Add"
-                                                    Style="{StaticResource Style.Button.GridAdd}" Margin="5,0,0,0"
-                                                    Width="55" Height="22" />
-                                                <Button x:Name="BtnUpdate" Content="Update"
-                                                    Command="{Binding DataContext.Add<%= persistClass %>Command, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                    CommandParameter="{Binding Id}"
-                                                    Style="{StaticResource Style.Button.GridUpdate}" Margin="5,0,0,0"
-                                                    Width="55" Height="22" />
-                                                <Button x:Name="BtnDelete" Content="Delete"
-                                                    Command="{Binding DataContext.Delete<%= persistClass %>Command, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                    CommandParameter="{Binding Id}"
-                                                    Style="{StaticResource Style.Button.GridDelete}" Margin="5,0,0,0"
-                                                    Width="55" Height="22" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
-            </Border>
-        </DockPanel>
-    </Viewbox>
+</Viewbox>
 </UserControl>
