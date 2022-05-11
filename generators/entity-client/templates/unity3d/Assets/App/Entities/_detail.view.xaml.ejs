@@ -14,7 +14,7 @@
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="LayoutRoot">
             <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
         </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="AddTemplateQuizzButton">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Add<%= persistClass %>Button">
             <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
             <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
             <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
@@ -24,7 +24,7 @@
                 </EasingDoubleKeyFrame.EasingFunction>
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="AddTemplateQuizzButton">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Add<%= persistClass %>Button">
             <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
             <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
             <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
@@ -61,23 +61,23 @@
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
-            <b:ChangePropertyAction TargetName="LayoutRoot" PropertyName="Tag" Value="TemplateQuizzDetail"/>
+            <b:ChangePropertyAction TargetName="LayoutRoot" PropertyName="Tag" Value="<%= persistClass %>Detail"/>
         </b:EventTrigger>
-        <b:DataTrigger Binding="{Binding Tag, ElementName=LayoutRoot}" Value="TemplateQuizzDetail">
+        <b:DataTrigger Binding="{Binding Tag, ElementName=LayoutRoot}" Value="<%= persistClass %>Detail">
             <b:ControlStoryboardAction Storyboard="{StaticResource FadeIn}"/>
         </b:DataTrigger>
-        <b:DataTrigger Binding="{Binding State}" Comparison="NotEqual" Value="{x:Static local:State.TemplateQuizzDetail}">
+        <b:DataTrigger Binding="{Binding State}" Comparison="NotEqual" Value="{x:Static local:State.<%= persistClass %>Detail}">
             <b:ControlStoryboardAction Storyboard="{StaticResource FadeOut}"/>
         </b:DataTrigger>
         <b:KeyTrigger Key="Esc" ActiveOnFocus="True">
-            <b:PlaySoundAction Source="/Quizz3D;component/Assets/Quizz3D/Sounds/WaterDropBig.mp3" Volume="0.5"/>
+            <b:PlaySoundAction Source="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Sounds/WaterDropBig.mp3" Volume="0.5"/>
             <b:InvokeCommandAction Command="{Binding MenuCommand}"/>
         </b:KeyTrigger>
     </b:Interaction.Triggers>
 
     <DockPanel x:Name="DockPanel">
         <Border DockPanel.Dock="Top" Margin="4,0,4,4" Padding="0" Height="75" Background="#99031D29" CornerRadius="10">
-            <TextBlock Text="Add Quizz!" FontSize="48" FontFamily="/Quizz3D;component/Assets/Quizz3D/Fonts/#Jungle Adventurer" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="69" Width="500" TextAlignment="Center" Padding="0,10,0,0" Background="#FF031D29">
+            <TextBlock Text="Add <%= persistClass %>!" FontSize="48" FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#Jungle Adventurer" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="69" Width="500" TextAlignment="Center" Padding="0,10,0,0" Background="#FF031D29">
                 <TextBlock.Effect>
                     <DropShadowEffect/>
                 </TextBlock.Effect>
@@ -91,7 +91,7 @@
         </Border>
 
         <Border DockPanel.Dock="Left" BorderThickness="5" Margin="0,0,0,0" Padding="0" Width="425" CornerRadius="20,20,20,20">
-            <local:LeftMenuPanel x:Name="LeftMenuPanel" ExitButton="MAIN MENU" ExitButtonCommand="ExitCommand" ButtonOne="QUIZZ" ButtonOneCommand="OnQuizz" Description="Add A Quizz" AcceptText="ACCEPT" CancelText="QUIT" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,10" Width="450" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <local:LeftMenuPanel x:Name="LeftMenuPanel" ExitButton="MAIN MENU" ExitButtonCommand="ExitCommand" ButtonOne="QUIZZ" ButtonOneCommand="On<%= persistClass %>" Description="Add A <%= persistClass %>" AcceptText="ACCEPT" CancelText="QUIT" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,10" Width="450" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <local:LeftMenuPanel.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -125,6 +125,7 @@
                     </Border.Background>
                 </Border>
 
+                <StackPanel Margin="0,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                     <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
                     <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal"
                         HorizontalAlignment="Right">
@@ -149,6 +150,30 @@
                         </TextBox>
                     </StackPanel>
                     <%_ } _%>
+
+                    <%_ for (reference of dtoReferences) { _%>
+                        <%_ if (reference.collection && reference.relationship) { _%>
+                            public Set<<%= reference.relationship.otherEntity.entityNameCapitalized %>> <%= reference.name %> = new HashSet<>();
+                    
+                        <%_ } else if (reference.relationship) { _%>
+                            public <%= reference.relationship.otherEntity.entityNameCapitalized %> <%= reference.name %>;
+                            <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Select <%= reference.relationship.otherEntity.entityNameCapitalized %>:" HorizontalAlignment="Left" Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>IDLabel" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="#FF00B3FA"/>
+                                <ComboBox x:Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>Select" Style="{StaticResource Style.ComboBox}"> <!--ItemsSource="{Binding Quizzes}" SelectedIndex="{Binding Quizz}" noesis:Text.Placeholder="{Binding QuizzPlaceholder}" Width="400" Margin="10,0,10,10" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="/Quizz3D;component/Assets/Quizz3D/Fonts/#White Rabbit" FontSize="16">-->
+                                    <ComboBox.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </ComboBox.RenderTransform>
+                                </ComboBox>
+                            </StackPanel>
+                                
+                        <%_ } _%>
+                    <%_ } _%>
+                    
 
                     <Rectangle Height="3
                                    " Width="707" Margin="0,10,0,10">

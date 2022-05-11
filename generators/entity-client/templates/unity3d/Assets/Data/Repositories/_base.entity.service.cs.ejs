@@ -47,7 +47,12 @@ namespace <%= unity3dAppName %>.Data.Repositories
                 List<Entities.<%= persistClass %>> entities = new List<Entities.<%= persistClass %>>(response);
                 taskCompletionSource.SetResult(entities);
             })
-            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+            .Catch(error => { 
+                #if UNITY_5_3_OR_NEWER
+                                    UnityEngine.Debug.Log(error.Message);
+                #endif
+                                }
+                            );
 
             return taskCompletionSource.Task;
         }
@@ -61,7 +66,12 @@ namespace <%= unity3dAppName %>.Data.Repositories
                 Entities.<%= persistClass %> entity = response;
                 taskCompletionSource.SetResult(entity);
             })
-            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+            .Catch(error => { 
+                #if UNITY_5_3_OR_NEWER
+                                    UnityEngine.Debug.Log(error.Message);
+                #endif
+                                }
+                            );
 
             return taskCompletionSource.Task;
         }
@@ -74,7 +84,12 @@ namespace <%= unity3dAppName %>.Data.Repositories
                 Entities.<%= persistClass %> _entity = response;
                 taskCompletionSource.SetResult(_entity);
             })
-            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+            .Catch(error => { 
+                #if UNITY_5_3_OR_NEWER
+                                    UnityEngine.Debug.Log(error.Message);
+                #endif
+                                }
+                            );
 
             return taskCompletionSource.Task;
         }
@@ -87,7 +102,12 @@ namespace <%= unity3dAppName %>.Data.Repositories
                 Entities.<%= persistClass %> _entity = response;
                 taskCompletionSource.SetResult(_entity);
             })
-            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+            .Catch(error => { 
+                #if UNITY_5_3_OR_NEWER
+                                    UnityEngine.Debug.Log(error.Message);
+                #endif
+                                }
+                            );
 
             return taskCompletionSource.Task;
         }
@@ -97,7 +117,12 @@ namespace <%= unity3dAppName %>.Data.Repositories
 
             RestClient.Delete($"{<%= unity3dAppName %>App.BASE_PATH}{API_URL}/{id}")
             .Then(response => taskCompletionSource.SetResult(null))
-            .Catch(error => <%= unity3dAppName %>App.LogMessage("Error", error.Message));
+            .Catch(error => { 
+                #if UNITY_5_3_OR_NEWER
+                                    UnityEngine.Debug.Log(error.Message);
+                #endif
+                                }
+                            );
 
             return taskCompletionSource.Task;
         }
