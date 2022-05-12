@@ -153,24 +153,21 @@
 
                     <%_ for (reference of dtoReferences) { _%>
                         <%_ if (reference.collection && reference.relationship) { _%>
-                            public Set<<%= reference.relationship.otherEntity.entityNameCapitalized %>> <%= reference.name %> = new HashSet<>();
-                    
+                            <!-- Implement with set references  -->      
                         <%_ } else if (reference.relationship) { _%>
-                            public <%= reference.relationship.otherEntity.entityNameCapitalized %> <%= reference.name %>;
-                            <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Label Content="Select <%= reference.relationship.otherEntity.entityNameCapitalized %>:" HorizontalAlignment="Left" Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>IDLabel" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="#FF00B3FA"/>
-                                <ComboBox x:Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>Select" Style="{StaticResource Style.ComboBox}"> <!--ItemsSource="{Binding Quizzes}" SelectedIndex="{Binding Quizz}" noesis:Text.Placeholder="{Binding QuizzPlaceholder}" Width="400" Margin="10,0,10,10" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="/Quizz3D;component/Assets/Quizz3D/Fonts/#White Rabbit" FontSize="16">-->
-                                    <ComboBox.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </ComboBox.RenderTransform>
-                                </ComboBox>
-                            </StackPanel>
-                                
+                    <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Select <%= reference.relationship.otherEntity.entityNameCapitalized %>:" HorizontalAlignment="Left" Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>IDLabel" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="#FF00B3FA"/>
+                        <ComboBox x:Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>Select" Style="{StaticResource Style.ComboBox}"  ItemsSource="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>es}" SelectedIndex="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>}" noesis:Text.Placeholder="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>Placeholder}" Width="400" Margin="10,0,10,10" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#White Rabbit" FontSize="16">
+                            <ComboBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ComboBox.RenderTransform>
+                        </ComboBox>
+                    </StackPanel>
                         <%_ } _%>
                     <%_ } _%>
                     
