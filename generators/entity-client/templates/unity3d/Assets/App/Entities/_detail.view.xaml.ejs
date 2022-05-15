@@ -45,15 +45,19 @@
     </b:Interaction.Triggers>
 
     <DockPanel x:Name="DockPanel">
-        <Border x:Name="TopPanel" Background="{StaticResource Brush.TopPanelTransparent}" DockPanel.Dock="Top" Margin="4,0,4,4" Padding="0" Height="75" Background="#99031D29" CornerRadius="10">
-            <TextBlock Background="{StaticResource Brush.TopPanelMain}" Foreground="{StaticResource Brush.WhiteOrangeTextBlock}" Text="Add <%= persistClass %>!" FontSize="48" FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#Jungle Adventurer" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="69" Width="500" TextAlignment="Center" Padding="0,10,0,0" Background="#FF031D29">
+
+        <Border x:Name="TopPanel" DockPanel.Dock="Top" Background="{StaticResource Brush.TopPanelTransparent}" Margin="4,0,4,4" Padding="0" Height="75" CornerRadius="10">
+            
+            <TextBlock Background="{StaticResource Brush.TopPanelMain}" Foreground="{StaticResource Brush.WhiteOrangeTextBlock}" Text="Add <%= persistClass %>!" FontSize="48" FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#Jungle Adventurer" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="69" Width="500" TextAlignment="Center" Padding="0,10,0,0">
                 <TextBlock.Effect>
                     <DropShadowEffect/>
                 </TextBlock.Effect>
             </TextBlock>
+
         </Border>
 
-        <Border DockPanel.Dock="Left" BorderThickness="2" Margin="0,0,1,0" Padding="0" Width="425" CornerRadius="20,20,20,20">
+        <Border DockPanel.Dock="Left" Margin="0,0,1,0" Padding="0" Width="425" CornerRadius="10">
+
             <local:LeftMenuPanel x:Name="LeftMenuPanel" ExitButton="MAIN MENU" ExitButtonCommand="ExitCommand" ButtonOne="QUIZZ" ButtonOneCommand="On<%= persistClass %>" Description="Add A <%= persistClass %>" AcceptText="ACCEPT" CancelText="QUIT" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,10" Width="450" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <local:LeftMenuPanel.RenderTransform>
                     <TransformGroup>
@@ -66,18 +70,21 @@
             </local:LeftMenuPanel>
 
         </Border>
-        <Border DockPanel.Dock="Right" BorderBrush="{StaticResource Brush.BorderSD}" Background="{StaticResource Brush.BackgroundSD}" BorderThickness="2" Margin="4" Padding="0" CornerRadius="20,20,20,20">
-            <Grid Margin="0,0,0,0">
-                
-                <Border BorderThickness="5" CornerRadius="10" Padding="5,5,5,5" Margin="5,10,0,0"/>
 
+        <Border DockPanel.Dock="Right" BorderBrush="{StaticResource Brush.BorderSD}" Background="{StaticResource Brush.BackgroundSD}" BorderThickness="2" Margin="4" Padding="0" CornerRadius="20,20,20,20">
+            
+            <Grid Margin="0,0,0,0">
+                         
                 <StackPanel Margin="0,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    
                     <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
-                    <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal"
-                        HorizontalAlignment="Right">
-                        <Label Content="<%= javaBeanCase(field.fieldName) %>" HorizontalAlignment="Left" Name="LBL<%= javaBeanCase(field.fieldName) %>" VerticalAlignment="Center"
+                    
+                        <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                        
+                            <Label Content="<%= javaBeanCase(field.fieldName) %>" HorizontalAlignment="Left" Name="LBL<%= javaBeanCase(field.fieldName) %>" VerticalAlignment="Center"
                             Margin="13,0,0,0" Foreground="#FF00B3FA" />
-                        <TextBox Text="{Binding <%= javaBeanCase(field.fieldName) %>}" Style="{StaticResource Style.Text.Box}" Name="<%= javaBeanCase(field.fieldName) %>"
+                        
+                            <TextBox Text="{Binding <%= javaBeanCase(field.fieldName) %>}" Style="{StaticResource Style.Text.Box}" Name="<%= javaBeanCase(field.fieldName) %>"
                             Margin="10,0,10,10" Foreground="#FFA5CCCF" Padding="0,10,0,0" HorizontalAlignment="Center"
                             FontFamily="White Rabbit" FontStyle="Normal" Width="400" Height="50">
                             <b:Interaction.Triggers>
@@ -94,16 +101,21 @@
                                 </TransformGroup>
                             </TextBox.RenderTransform>
                         </TextBox>
+
                     </StackPanel>
+
                     <%_ } _%>
 
                     <%_ for (reference of dtoReferences) { _%>
                         <%_ if (reference.collection && reference.relationship) { _%>
                             <!-- Implement with set references  -->      
                         <%_ } else if (reference.relationship) { _%>
+
                     <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                        
                         <Label Content="Select <%= reference.relationship.otherEntity.entityNameCapitalized %>:" HorizontalAlignment="Left" Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>IDLabel" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="#FF00B3FA"/>
-                        <ComboBox x:Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>Select" Style="{StaticResource Style.ComboBox}"  ItemsSource="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>es}" SelectedIndex="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>}" noesis:Text.Placeholder="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>Placeholder}" Width="400" Margin="10,0,10,10" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#White Rabbit" FontSize="16">
+                        
+                            <ComboBox x:Name="<%= reference.relationship.otherEntity.entityNameCapitalized %>Select" Style="{StaticResource Style.ComboBox}"  ItemsSource="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>es}" SelectedIndex="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>}" noesis:Text.Placeholder="{Binding <%= reference.relationship.otherEntity.entityNameCapitalized %>Placeholder}" Width="400" Margin="10,0,10,10" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="/<%= unity3dAppName %>;component/Assets/<%= unity3dAppName %>/Fonts/#White Rabbit" FontSize="16">
                             <ComboBox.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -113,11 +125,12 @@
                                 </TransformGroup>
                             </ComboBox.RenderTransform>
                         </ComboBox>
+
                     </StackPanel>
+
                         <%_ } _%>
                     <%_ } _%>
                     
-
                     <Rectangle Height="3
                                    " Width="707" Margin="0,10,0,10">
                         <Rectangle.Fill>
@@ -129,15 +142,22 @@
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
+
                     <Button x:Name="Add<%= persistClass %>Button" Content="Accept" Style="{StaticResource Style.Button.Menu}" Command="{Binding Add<%= persistClass %>Command}" Margin="0,20,0,10"/>
-                    <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+                    
+                        <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Label Content="Status:" HorizontalAlignment="Left" Name="New<%= persistClass %>DebugIDLabel" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="#FF00B3FA"/>
                         <TextBlock noesis:Text.Placeholder="New <%= persistClass %> Added..." Margin="10,0,10,10" Foreground="#FFA5CCCF" Padding="0,10,0,0" HorizontalAlignment="Center" FontFamily="White Rabbit" FontStyle="Normal" Width="400" Height="50"/>
                     </StackPanel>
+
                 </StackPanel>
+
             </Grid>
+
         </Border>
+
     </DockPanel>
 
 </Viewbox>
+
 </UserControl>
