@@ -128,8 +128,13 @@
                     <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
                     <StackPanel Height="70" Margin="0,0,20,0" VerticalAlignment="Center" Orientation="Horizontal"
                         HorizontalAlignment="Right">
-                        <Label Content="<%= javaBeanCase(field.fieldName) %>" HorizontalAlignment="Left" Name="LBL<%= javaBeanCase(field.fieldName) %>" VerticalAlignment="Center"
-                            Margin="13,0,0,0" Foreground="#FF00B3FA" />
+                        <%_ if (field.javaFieldType === 'bool') { _%>
+                        <CheckBox x:Name="<%= javaBeanCase(field.fieldName) %>CheckBox" IsChecked="{Binding <%= javaBeanCase(field.fieldName) %>}" Style="{StaticResource Style.CheckBox}" Width="150" Content="<%= javaBeanCase(field.fieldName) %>" Margin="0,0,0,5"
+                            FontFamily="White Rabbit" FontSize="20" Foreground="White" />
+                        <%_ } else { _%>
+                        <Label Content="<%= javaBeanCase(field.fieldName) %>" HorizontalAlignment="Left"
+                            Name="LBL<%= javaBeanCase(field.fieldName) %>" VerticalAlignment="Center" Margin="13,0,0,0"
+                            Foreground="#FF00B3FA" />
                         <TextBox Text="{Binding <%= javaBeanCase(field.fieldName) %>}" Style="{StaticResource Style.Text.Box}" Name="<%= javaBeanCase(field.fieldName) %>"
                             Margin="10,0,10,10" Foreground="#FFA5CCCF" Padding="0,10,0,0" HorizontalAlignment="Center"
                             FontFamily="White Rabbit" FontStyle="Normal" Width="400" Height="50">
@@ -147,6 +152,7 @@
                                 </TransformGroup>
                             </TextBox.RenderTransform>
                         </TextBox>
+                        <%_ } _%>
                     </StackPanel>
                     <%_ } _%>
 
