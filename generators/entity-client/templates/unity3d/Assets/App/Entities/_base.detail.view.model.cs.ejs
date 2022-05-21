@@ -1,12 +1,9 @@
 #if UNITY_5_3_OR_NEWER
 #define NOESIS
 using Noesis;
-using System.Collections.Generic;
 
 #else
 
-using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,6 +14,7 @@ using System.Windows.Media.Animation;
 using System;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using <%= unity3dAppName %>;
 using <%= unity3dAppName %>.Data.Entities;
@@ -34,6 +32,46 @@ namespace <%= unity3dAppName %>
         public <%= field.javaFieldType %> <%= javaBeanCase(field.fieldName) %> {get {return <%= field.fieldName %>;} set {<%= field.fieldName %> = value;} }
         <%_ } _%>
 
+        <%_ for (reference of dtoReferences) { _%>
+            <%_ if (reference.collection && reference.relationship) { _%>
+                // Implement with set references      
+            <%_ } else if (reference.relationship) { _%>
+        <%= unity3dAppName %>.Data.Repositories.<%= reference.relationship.otherEntity.entityNameCapitalized %>Repository <%= reference.name %>Repository = new <%= unity3dAppName %>.Data.Repositories.<%= reference.relationship.otherEntity.entityNameCapitalized %>Repository();
+        private string _<%= reference.name %>Placeholder;
+        public string <%= reference.relationship.otherEntity.entityNameCapitalized %>Placeholder { get {
+                if (_<%= reference.name %> >= 0)
+                {
+                    _<%= reference.name %>Placeholder = "";
+                }
+                else
+                {
+                    _<%= reference.name %>Placeholder = "Select a <%= reference.relationship.otherEntity.entityNameCapitalized %>...";
+                }
+                return _<%= reference.name %>Placeholder;
+            } set { _<%= reference.name %>Placeholder = value; }
+        }
+        public int <%= reference.relationship.otherEntity.entityNameCapitalized %>
+        {
+            get { return _<%= reference.name %>; }
+            set
+            {
+                if (_<%= reference.name %> != value)
+                {
+                    _<%= reference.name %> = value;
+                }
+                if (_<%= reference.name %> > 0) {
+                    OnPropertyChanged("<%= reference.relationship.otherEntity.entityNameCapitalized %>");
+                    OnPropertyChanged("<%= reference.relationship.otherEntity.entityNameCapitalized %>Placeholder");
+                }
+            }
+        }
+        private int _<%= reference.name %>;
+        public List<<%= reference.relationship.otherEntity.entityNameCapitalized %>> <%= reference.relationship.otherEntity.entityNameCapitalized %>es { get { _<%= reference.name %>es.Sort((a, b) => a.ToString().CompareTo(b.ToString())); return _<%= reference.name %>es; } private set { } }
+        private List<<%= reference.relationship.otherEntity.entityNameCapitalized %>> _<%= reference.name %>es = new List<<%= reference.relationship.otherEntity.entityNameCapitalized %>>();
+                        
+            <%_ } _%>
+        <%_ } _%>
+
         public Base<%= persistClass %>DetailViewModel(object param){
 
             ExitCommand = new DelegateCommand(OnExit);
@@ -45,6 +83,15 @@ namespace <%= unity3dAppName %>
 
         public async void init(object param) {
 #if UNITY_5_3_OR_NEWER
+    <%_ for (reference of dtoReferences) { _%>
+        <%_ if (reference.collection && reference.relationship) { _%>
+            // Implement with set references      
+        <%_ } else if (reference.relationship) { _%>
+            _<%= reference.name %>es = await <%= reference.name %>Repository.getEntities();
+            OnPropertyChanged("<%= reference.relationship.otherEntity.entityNameCapitalized %>es");
+        <%_ } _%>
+    <%_ } _%>
+
             if (param != null && param != ""){
                 <%= persistClass %> entity = await <%= entityInstance %>Repository.getEntity((string)param);
                 <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
