@@ -119,7 +119,7 @@ module.exports = class extends baseMixin(BaseGenerator) {
       processFieldType() {
         this.entity.fields.forEach(field => {
           if (field.blobContentTypeText) {
-            field.javaFieldType = 'string';
+            field.javaFieldType = 'byte[]';
           } else {
             field.javaFieldType = this._toCSharpFields(field.fieldType);
           }
@@ -144,6 +144,9 @@ module.exports = class extends baseMixin(BaseGenerator) {
     }
     if ( field === 'String' ) {
       _field = 'string';
+    }
+    if ( field === 'byte[]' ) {
+      _field = 'byte[]';
     }
     return _field;
   }

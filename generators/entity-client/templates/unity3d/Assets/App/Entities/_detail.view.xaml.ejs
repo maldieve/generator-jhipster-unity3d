@@ -83,6 +83,18 @@
                         <%_ if (field.javaFieldType === 'bool') { _%>
                         <CheckBox x:Name="<%= javaBeanCase(field.fieldName) %>CheckBox" IsChecked="{Binding <%= javaBeanCase(field.fieldName) %>}" Style="{StaticResource Style.CheckBox}" Width="150" Content="<%= javaBeanCase(field.fieldName) %>" Margin="0,0,0,5"
                             FontFamily="White Rabbit" FontSize="20" Foreground="White" />
+                        <%_ } else if (field.javaFieldType==='byte[]' ) { _%>
+                        <Label Content="<%= javaBeanCase(field.fieldName) %>" HorizontalAlignment="Left"
+                            Name="LBL<%= javaBeanCase(field.fieldName) %>" VerticalAlignment="Center" Margin="13,0,0,0"
+                            Foreground="#FF00B3FA" />
+                        <Image 
+                            Source="{Binding <%= javaBeanCase(field.fieldName) %>}" 
+                            Name="<%= javaBeanCase(field.fieldName) %>Image" 
+                            Margin="10,0,10,10" 
+                            HorizontalAlignment="Center" 
+                            Width="300" 
+                            Height="400" 
+                        />
                         <%_ } else { _%>
                         <Label Content="<%= javaBeanCase(field.fieldName) %>" HorizontalAlignment="Left"
                             Name="LBL<%= javaBeanCase(field.fieldName) %>" VerticalAlignment="Center" Margin="13,0,0,0"
