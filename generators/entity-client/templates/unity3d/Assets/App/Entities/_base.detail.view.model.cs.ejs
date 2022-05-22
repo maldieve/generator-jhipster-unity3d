@@ -65,7 +65,7 @@ namespace <%= unity3dAppName %>
                 }
             }
         }
-        private int _<%= reference.name %>;
+        private int _<%= reference.name %> = -1;
         public List<<%= reference.relationship.otherEntity.entityNameCapitalized %>> <%= reference.relationship.otherEntity.entityNameCapitalized %>es { get { _<%= reference.name %>es.Sort((a, b) => a.ToString().CompareTo(b.ToString())); return _<%= reference.name %>es; } private set { } }
         private List<<%= reference.relationship.otherEntity.entityNameCapitalized %>> _<%= reference.name %>es = new List<<%= reference.relationship.otherEntity.entityNameCapitalized %>>();
                         
@@ -82,6 +82,7 @@ namespace <%= unity3dAppName %>
         }
 
         public async void init(object param) {
+            int count = 0;
 #if UNITY_5_3_OR_NEWER
     <%_ for (reference of dtoReferences) { _%>
         <%_ if (reference.collection && reference.relationship) { _%>
@@ -98,6 +99,21 @@ namespace <%= unity3dAppName %>
                 <%= field.fieldName %> = entity.<%= field.fieldName %>;
                 OnPropertyChanged("<%= javaBeanCase(field.fieldName) %>");
                 <%_ } _%>
+
+        <%_ for (reference of dtoReferences) { _%>
+            <%_ if (reference.collection && reference.relationship) { _%>
+                // Implement with set references      
+            <%_ } else if (reference.relationship) { _%>
+                foreach (var <%= reference.name %> in _<%= reference.name %>es) {
+                    if ( entity.<%= reference.name %>.id == <%= reference.name %>.id ) {
+                        <%= reference.relationship.otherEntity.entityNameCapitalized %> = count;
+                        break;
+                    }
+                    count ++;
+                }
+                count = 0;
+            <%_ } _%>
+        <%_ } _%>            
             }
 #endif
         }
