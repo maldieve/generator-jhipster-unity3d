@@ -1,6 +1,7 @@
 #if UNITY_5_3_OR_NEWER
 #define NOESIS
 using Noesis;
+using UnityEngine;
 
 #else
 
@@ -28,8 +29,15 @@ namespace <%= unity3dAppName %>
         public ICommand ExitCommand { get; private set; }	
 
         <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+            <%_ if (field.javaFieldType === 'byte[]') { _%>
+#if UNITY_5_3_OR_NEWER
+        private Texture2D <%= field.fieldName %>;
+        public Texture2D <%= javaBeanCase(field.fieldName) %> {get {return <%= field.fieldName %>;} set {<%= field.fieldName %> = value;} }
+#endif
+            <%_ } else { _%>
         private <%= field.javaFieldType %> <%= field.fieldName %>;
         public <%= field.javaFieldType %> <%= javaBeanCase(field.fieldName) %> {get {return <%= field.fieldName %>;} set {<%= field.fieldName %> = value;} }
+            <%_ } _%>
         <%_ } _%>
 
         <%_ for (reference of dtoReferences) { _%>
@@ -96,7 +104,12 @@ namespace <%= unity3dAppName %>
             if (param != null && param != ""){
                 <%= persistClass %> entity = await <%= entityInstance %>Repository.getEntity((string)param);
                 <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+                    <%_ if (field.javaFieldType==='byte[]' ) { _%>
+                <%= field.fieldName %> = new Texture2D (2,2);
+                <%= field.fieldName %>.LoadImage(entity.<%= field.fieldName %>);
+                    <%_ } else { _%>
                 <%= field.fieldName %> = entity.<%= field.fieldName %>;
+                    <%_ } _%>
                 OnPropertyChanged("<%= javaBeanCase(field.fieldName) %>");
                 <%_ } _%>
 
@@ -121,10 +134,16 @@ namespace <%= unity3dAppName %>
         private async void OnAdd<%= persistClass %>(object param){
             <%= persistClass %> entity = new <%= persistClass %> { 
             <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
+                    <%_ if (field.javaFieldType==='byte[]' ) { _%>
+#if UNITY_5_3_OR_NEWER
+                , <%= field.fieldName %> = <%= field.fieldName %>.GetRawTextureData()
+#endif
+                    <%_ } else { _%>
                 <%= field.fieldName === 'id' ? field.fieldName + ' = ' + field.fieldName : ', ' + field.fieldName + ' = ' + field.fieldName %>
+                    <%_ } _%>
             <%_ } _%>
             };
-            #if UNITY_5_3_OR_NEWER
+#if UNITY_5_3_OR_NEWER
             if (id != null) {
                 entity = await <%= entityInstance %>Repository.updateEntity(entity);
             } else {
