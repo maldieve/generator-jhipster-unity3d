@@ -106,7 +106,7 @@ namespace <%= unity3dAppName %>
                 <%_ for (const field of fields.filter(field=> !field.transient && (embedded || !field.id || !primaryKey.composite))) { _%>
                     <%_ if (field.javaFieldType==='byte[]' ) { _%>
                 <%= field.fieldName %> = new Texture2D (2,2);
-                <%= field.fieldName %>.LoadImage(entity.<%= field.fieldName %>);
+                <%= field.fieldName %>.LoadImage(Encoding.ASCII.GetBytes(entity.<%= field.fieldName %>));
                     <%_ } else { _%>
                 <%= field.fieldName %> = entity.<%= field.fieldName %>;
                     <%_ } _%>
@@ -142,7 +142,14 @@ namespace <%= unity3dAppName %>
                 <%= field.fieldName === 'id' ? field.fieldName + ' = ' + field.fieldName : ', ' + field.fieldName + ' = ' + field.fieldName %>
                     <%_ } _%>
             <%_ } _%>
-            };
+            <%_ for (reference of dtoReferences) { _%>
+                <%_ if (reference.collection && reference.relationship) { _%>
+                    // Implement with set references      
+                <%_ } else if (reference.relationship) { _%>
+                , <%= reference.name %> = _<%= reference.name %>es[_<%= reference.name %>]
+                <%_ } _%>
+            <%_ } _%>            
+                };
 #if UNITY_5_3_OR_NEWER
             if (id != null) {
                 entity = await <%= entityInstance %>Repository.updateEntity(entity);

@@ -1,7 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_5_3_OR_NEWER
+#define NOESIS
+using Noesis;
 using UnityEngine;
+#else
+#endif
+
+using System.Collections;
 using Proyecto26;
+using System.Threading.Tasks;
 using <%= unity3dAppName %>.Authentication.Model;
 
 namespace <%= unity3dAppName %>
@@ -13,6 +19,27 @@ namespace <%= unity3dAppName %>
         public static void LogMessage(string title, string message)
         {
             Debug.Log(message);
+        }
+
+        private class <%= unity3dAppName %>Coroutine : MonoBehaviour { }
+
+        private static <%= unity3dAppName %>Coroutine _runner;
+        private static <%= unity3dAppName %>Coroutine Runner
+        {
+            get
+            {
+                if (_runner == null)
+                {
+                    _runner = new GameObject("<%= unity3dAppName %> dynamic threaded object").AddComponent<<%= unity3dAppName %>Coroutine>();
+                    Object.DontDestroyOnLoad(_runner);
+                }
+                return _runner;
+            }
+        }
+
+        public static Coroutine StartCoroutine(IEnumerator coroutine)
+        {
+            return Runner.StartCoroutine(coroutine);
         }
 
         public static void authenticate(string username, string password) {
